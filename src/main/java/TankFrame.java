@@ -30,6 +30,7 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         System.out.println("paint");
+        System.out.println("paint");
         g.fillRect(x, y, 50, 50);
         x += 10;
         y += 10;
