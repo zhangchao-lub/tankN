@@ -1,6 +1,6 @@
 .idea
-.settings
 target
+.settings
 HELP.md
 .gradle
 build/
@@ -19,6 +19,7 @@ build/
 
 ### IntelliJ IDEA ###
 .idea
+target
 *.iws
 *.iml
 *.ipr

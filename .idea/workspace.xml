@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="370ddb3b-5eff-486f-bcdb-c55cca1517eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TankFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TankFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TankFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TankFrame.class" afterDir="false" />
-    </list>
+    <list default="true" id="370ddb3b-5eff-486f-bcdb-c55cca1517eb" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,7 +47,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/TankFrame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="282">
@@ -59,6 +55,15 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="875">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
@@ -81,15 +86,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="6">
               <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/util/EventListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -156,6 +152,7 @@
         <option value="$PROJECT_DIR$/src/main/java/T.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/TankFrame.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -252,6 +249,11 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\GZWX\Desktop\tank-master\tankN" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -290,7 +292,7 @@
       <updated>1598496640437</updated>
       <workItem from="1598496642919" duration="437000" />
       <workItem from="1598497088443" duration="3948000" />
-      <workItem from="1598511942709" duration="10848000" />
+      <workItem from="1598511942709" duration="11034000" />
     </task>
     <task id="LOCAL-00001" summary="my first github project">
       <created>1598517204192</created>
@@ -320,11 +322,25 @@
       <option name="project" value="LOCAL" />
       <updated>1598521116571</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="实现坦克前后左右移动">
+      <created>1598522895727</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1598522895727</updated>
+    </task>
+    <task id="LOCAL-00006" summary="添加.gitignore">
+      <created>1598523025909</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1598523025909</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15233000" />
+    <option name="totallyTimeSpent" value="15419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -336,7 +352,7 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.032502707" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.40563992" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40563992" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -364,7 +380,9 @@
     <MESSAGE value="my first github change" />
     <MESSAGE value="1、主线程每50ms刷新窗口&#10;2、repaint()方法刷新 paint()方法&#10;3、控制键盘按下 和释放触发 矩形的x，y变化" />
     <MESSAGE value="坦克添加上下左右功能 根据按键的状态判断坦的方向" />
-    <option name="LAST_COMMIT_MESSAGE" value="坦克添加上下左右功能 根据按键的状态判断坦的方向" />
+    <MESSAGE value="实现坦克前后左右移动" />
+    <MESSAGE value="添加.gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加.gitignore" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -495,6 +513,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="875">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
