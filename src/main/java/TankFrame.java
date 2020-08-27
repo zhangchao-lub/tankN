@@ -8,7 +8,7 @@ import java.awt.event.*;
  * @descrption
  */
 public class TankFrame extends Frame {
-    int x = 200, y = 200;
+    int x = 375, y = 275;
 
     public TankFrame() {
         setSize(800, 600);
@@ -31,7 +31,6 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         System.out.println("paint");
-        System.out.println("paint");
         g.fillRect(x, y, 50, 50);
 //        x += 10;
 //        y += 10;
@@ -50,10 +49,10 @@ public class TankFrame extends Frame {
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_UP:
-                    bD=true;
+                    bU=true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    bU=true;
+                    bD=true;
                     break;
                 case KeyEvent.VK_LEFT:
                     bL=true;
@@ -61,6 +60,20 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT:
                     bR=true;
                     break;
+            }
+            if(bU && bD){
+
+            }else if(bU){
+                y-=10;
+            }else if(bD){
+                y+=10;
+            }
+            if(bL && bR){
+
+            }else if(bL){
+                x-=10;
+            }else if(bR){
+                x+=10;
             }
         }
 
@@ -70,10 +83,10 @@ public class TankFrame extends Frame {
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_UP:
-                    bD=false;
+                    bU=false;
                     break;
                 case KeyEvent.VK_DOWN:
-                    bU=false;
+                    bD=false;
                     break;
                 case KeyEvent.VK_LEFT:
                     bL=false;
