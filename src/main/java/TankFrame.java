@@ -10,6 +10,7 @@ import java.awt.event.*;
  */
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, null);
+    Bullet b = new Bullet(myTank.getX(), myTank.getY(), null);
 
     public TankFrame() {
         setSize(800, 600);
@@ -31,7 +32,7 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
-
+        b.paint(g);
 //        x += 10;
 //        y += 10;
     }
