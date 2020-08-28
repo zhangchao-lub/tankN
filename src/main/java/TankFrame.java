@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,10 +9,7 @@ import java.awt.event.*;
  * @descrption
  */
 public class TankFrame extends Frame {
-    private int x = 375, y = 275;
-    Dir dir = Dir.DOWN;
-    private final int SPEED = 10;
-
+    Tank myTank=new Tank(200,200,null);
     public TankFrame() {
         setSize(800, 600);
         setResizable(false);
@@ -32,23 +30,8 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         System.out.println("paint");
-        g.fillRect(x, y, 50, 50);
-        switch (dir) {
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            default:
-                break;
-        }
+        myTank.paint(g);
+
 //        x += 10;
 //        y += 10;
     }
@@ -61,6 +44,7 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyPressed(KeyEvent e) {
+            super.keyPressed(e);
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_UP:
@@ -84,6 +68,7 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyReleased(KeyEvent e) {
+            super.keyReleased(e);
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_UP:
@@ -101,14 +86,18 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDir();
+            setMainTankDirNull();
         }
 
         private void setMainTankDir() {
-            if (bU) dir = Dir.UP;
-            if (bD) dir = Dir.DOWN;
-            if (bL) dir = Dir.LEFT;
-            if (bR) dir = Dir.RIGHT;
+            if (bU) myTank.setDir(Dir.UP);
+            if (bD) myTank.setDir(Dir.DOWN);
+            if (bL) myTank.setDir(Dir.LEFT);
+            if (bR) myTank.setDir(Dir.RIGHT);
+        }
+
+        private void setMainTankDirNull() {
+            myTank.setDir(null);
         }
 
     }
