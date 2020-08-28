@@ -24,7 +24,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         Color c = g.getColor();
-        g.setColor(Color.green);
+        g.setColor(Color.GREEN);
         g.fillRect(x, y, 50, 50);
         g.setColor(c);
 
@@ -82,6 +82,6 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir));
+        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf));
     }
 }

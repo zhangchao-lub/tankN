@@ -52,9 +52,14 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        Color c=g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹的数量:"+bullets.size(),10,60);
+        g.setColor(c);
+
         myTank.paint(g);
-        for(Bullet b:bullets){
-            b.paint(g);
+        for(int i=0;i<bullets.size();i++){
+            bullets.get(i).paint(g);
         }
 //        x += 10;
 //        y += 10;
