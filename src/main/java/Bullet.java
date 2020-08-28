@@ -55,8 +55,11 @@ public class Bullet {
         if (x < 0 || y < 0 || x > TankFrame.GAME_WITCH || y > TankFrame.GAME_HEIGHT) live = false;
     }
 
-    public int getX() {
-        return x;
+    public boolean isLive() {
+        return live;
     }
 
+    public void setLive(boolean live) {
+        this.live = live;
+    }
 }

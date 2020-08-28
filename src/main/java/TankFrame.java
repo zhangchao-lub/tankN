@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -13,9 +14,10 @@ public class TankFrame extends Frame {
     static final int GAME_WITCH = 800;
     static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(200, 200, null,this);
-//    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
-    List<Bullet> bullets=new ArrayList<Bullet>();
+    Tank myTank = new Tank(200, 200, null, this);
+    List<Tank> enemyList= new ArrayList();
+    //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
+    List<Bullet> bullets = new ArrayList<Bullet>();
 
     public TankFrame() {
         setSize(GAME_WITCH, GAME_HEIGHT);
@@ -41,28 +43,37 @@ public class TankFrame extends Frame {
         if (offScreenImage == null) {
             offScreenImage = this.createImage(GAME_WITCH, GAME_HEIGHT);
         }
-        Graphics gOffScreen=offScreenImage.getGraphics();
-        Color c=gOffScreen.getColor();
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GAME_WITCH,GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GAME_WITCH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     @Override
     public void paint(Graphics g) {
-        Color c=g.getColor();
+        Color c = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹的数量:"+bullets.size(),10,60);
+        g.drawString("子弹的数量:" + bullets.size(), 10, 60);
         g.setColor(c);
 
         myTank.paint(g);
-        for(int i=0;i<bullets.size();i++){
+        enemyList.add(new Tank((int)(Math.random()*GAME_WITCH-50),(int)(Math.random()*GAME_HEIGHT-50),null,this));
+        for (int i = 0; i < enemyList.size(); i++) {
+            enemyList.get(i).paint(g);
+        }
+//        for(Bullet b:bullets){ //会报 java.util.ConcurrentModificationException 错误
+//            b.paint(g);
+//        }
+        for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
-//        x += 10;
-//        y += 10;
+//        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
+//            Bullet b = it.next();
+//            if (!b.isLive()) it.remove();
+//        }
     }
 
     class MyKeyListener extends KeyAdapter {

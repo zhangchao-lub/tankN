@@ -7,7 +7,10 @@ import java.awt.*;
  * @descrption
  */
 public class Tank {
+    // 坦克坐标
     private int x, y;
+    // 坦克 长宽
+    private int tankX = 50, tankY = 50;
     private Dir dir = null;
     private static final int SPEED = 10;
 
@@ -25,7 +28,7 @@ public class Tank {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, 50, 50);
+        g.fillRect(x, y, tankX, tankY);
         g.setColor(c);
 
         if (moving) {
@@ -82,6 +85,6 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf));
+        tf.bullets.add(new Bullet(this.x +tankX/2, this.y+tankY/2, this.dir, this.tf));
     }
 }
