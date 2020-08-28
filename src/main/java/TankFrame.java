@@ -9,7 +9,8 @@ import java.awt.event.*;
  * @descrption
  */
 public class TankFrame extends Frame {
-    Tank myTank=new Tank(200,200,null);
+    Tank myTank = new Tank(200, 200, null);
+
     public TankFrame() {
         setSize(800, 600);
         setResizable(false);
@@ -29,7 +30,6 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint");
         myTank.paint(g);
 
 //        x += 10;
@@ -86,19 +86,22 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDirNull();
+            setMainTankDir();
         }
 
         private void setMainTankDir() {
+            if (!bU && !bD && !bL && !bR) {
+                myTank.setMoving(false);
+            } else {
+                myTank.setMoving(true);
+            }
+            if (bR) myTank.setDir(Dir.RIGHT);
             if (bU) myTank.setDir(Dir.UP);
             if (bD) myTank.setDir(Dir.DOWN);
             if (bL) myTank.setDir(Dir.LEFT);
-            if (bR) myTank.setDir(Dir.RIGHT);
+
         }
 
-        private void setMainTankDirNull() {
-            myTank.setDir(null);
-        }
 
     }
 }
