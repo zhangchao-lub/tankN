@@ -8,7 +8,9 @@ import java.awt.event.*;
  * @descrption
  */
 public class TankFrame extends Frame {
-    int x = 375, y = 275;
+    private int x = 375, y = 275;
+    Dir dir = Dir.DOWN;
+    private final int SPEED = 10;
 
     public TankFrame() {
         setSize(800, 600);
@@ -22,7 +24,6 @@ public class TankFrame extends Frame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
                 System.exit(0);
             }
         });
@@ -32,69 +33,82 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("paint");
         g.fillRect(x, y, 50, 50);
+        switch (dir) {
+            case UP:
+                y -= SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            case LEFT:
+                x -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            default:
+                break;
+        }
 //        x += 10;
 //        y += 10;
     }
 
     class MyKeyListener extends KeyAdapter {
-
-        boolean bU=false;
-        boolean bD=false;
-        boolean bL=false;
-        boolean bR=false;
+        boolean bU = false;
+        boolean bD = false;
+        boolean bL = false;
+        boolean bR = false;
 
         @Override
         public void keyPressed(KeyEvent e) {
-            super.keyPressed(e);
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_UP:
-                    bU=true;
+                    bU = true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    bD=true;
+                    bD = true;
                     break;
                 case KeyEvent.VK_LEFT:
-                    bL=true;
+                    bL = true;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    bR=true;
+                    bR = true;
+                    break;
+                default:
                     break;
             }
-            if(bU && bD){
+            setMainTankDir();
 
-            }else if(bU){
-                y-=10;
-            }else if(bD){
-                y+=10;
-            }
-            if(bL && bR){
-
-            }else if(bL){
-                x-=10;
-            }else if(bR){
-                x+=10;
-            }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            super.keyReleased(e);
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_UP:
-                    bU=false;
+                    bU = false;
                     break;
                 case KeyEvent.VK_DOWN:
-                    bD=false;
+                    bD = false;
                     break;
                 case KeyEvent.VK_LEFT:
-                    bL=false;
+                    bL = false;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    bR=false;
+                    bR = false;
+                    break;
+                default:
                     break;
             }
+            setMainTankDir();
+        }
+
+        private void setMainTankDir() {
+            if (bU) dir = Dir.UP;
+            if (bD) dir = Dir.DOWN;
+            if (bL) dir = Dir.LEFT;
+            if (bR) dir = Dir.RIGHT;
         }
 
     }
