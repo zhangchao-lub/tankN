@@ -1,6 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author czhang@mindpointeye.com
@@ -9,11 +10,15 @@ import java.awt.event.*;
  * @descrption
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, null);
-    Bullet b = new Bullet(myTank.getX(), myTank.getY(), null);
+    static final int GAME_WITCH = 800;
+    static final int GAME_HEIGHT = 600;
+
+    Tank myTank = new Tank(200, 200, null,this);
+    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
+    List<Bullet> bList=new ArrayList<Bullet>();
 
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WITCH, GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -29,10 +34,28 @@ public class TankFrame extends Frame {
         });
     }
 
+    Image offScreenImage = null;
+
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WITCH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen=offScreenImage.getGraphics();
+        Color c=gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,GAME_WITCH,GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage,0,0,null);
+    }
+
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
-        b.paint(g);
+//        for(Bullet b:bList){
+            b.paint(g);
+//        }
 //        x += 10;
 //        y += 10;
     }
@@ -83,6 +106,11 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_RIGHT:
                     bR = false;
+                    break;
+                case KeyEvent.VK_SPACE:
+//                    b=myTank.fire();
+//                    bList.add(b);
+                    myTank.fire();
                     break;
                 default:
                     break;
