@@ -14,8 +14,8 @@ public class TankFrame extends Frame {
     static final int GAME_HEIGHT = 600;
 
     Tank myTank = new Tank(200, 200, null,this);
-    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
-    List<Bullet> bList=new ArrayList<Bullet>();
+//    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
+    List<Bullet> bullets=new ArrayList<Bullet>();
 
     public TankFrame() {
         setSize(GAME_WITCH, GAME_HEIGHT);
@@ -53,9 +53,9 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
-//        for(Bullet b:bList){
+        for(Bullet b:bullets){
             b.paint(g);
-//        }
+        }
 //        x += 10;
 //        y += 10;
     }
