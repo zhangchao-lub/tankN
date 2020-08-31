@@ -30,7 +30,22 @@ public class Tank {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x, y, tankX, tankY);
 //        g.setColor(c);
-        g.drawImage(ResourceMgr.tankU,x,y,null);
+        switch (dir) {
+            case UP:
+                g.drawImage(ResourceMgr.tankU,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD,x,y,null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR,x,y,null);
+                break;
+            default:
+                break;
+        }
         move();
     }
 

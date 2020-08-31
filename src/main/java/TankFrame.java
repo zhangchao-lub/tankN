@@ -14,7 +14,7 @@ public class TankFrame extends Frame {
     static final int GAME_WITCH = 800;
     static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(200, 200, null, this);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
     List<Tank> enemyList= new ArrayList();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
