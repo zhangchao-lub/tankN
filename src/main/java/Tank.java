@@ -11,8 +11,8 @@ public class Tank {
     private int x, y;
     // 坦克 长宽
     private int tankX = 50, tankY = 50;
-    private Dir dir = null;
-    private static final int SPEED = 10;
+    private Dir dir = Dir.UP;
+    private static final int SPEED = 5;
 
     private boolean moving = false;
 
@@ -26,11 +26,15 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y, tankX, tankY);
-        g.setColor(c);
+//        Color c = g.getColor();
+//        g.setColor(Color.GREEN);
+//        g.fillRect(x, y, tankX, tankY);
+//        g.setColor(c);
+        g.drawImage(ResourceMgr.tankU,x,y,null);
+        move();
+    }
 
+    private void move() {
         if (moving) {
             System.out.println(dir);
             switch (dir) {

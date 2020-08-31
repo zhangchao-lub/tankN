@@ -14,14 +14,16 @@ import static org.junit.Assert.assertNotNull;
  * @Date 2020/8/28 17:33
  * @descrption
  */
-class ImageTest {
+public class ImageTest {
 
     @Test
-    void test(){
+    public void test(){
         try {
             BufferedImage image=ImageIO.read(new File("src/images/bulletD.gif"));
             assertNotNull(image);
 
+            BufferedImage image2=ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            assertNotNull(image2);
         } catch (IOException e) {
             e.printStackTrace();
         }

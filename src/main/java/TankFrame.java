@@ -60,10 +60,10 @@ public class TankFrame extends Frame {
         g.setColor(c);
 
         myTank.paint(g);
-        enemyList.add(new Tank((int)(Math.random()*GAME_WITCH-50),(int)(Math.random()*GAME_HEIGHT-50),null,this));
-        for (int i = 0; i < enemyList.size(); i++) {
-            enemyList.get(i).paint(g);
-        }
+//        enemyList.add(new Tank((int)(Math.random()*GAME_WITCH-50),(int)(Math.random()*GAME_HEIGHT-50),null,this));
+//        for (int i = 0; i < enemyList.size(); i++) {
+//            enemyList.get(i).paint(g);
+//        }
 //        for(Bullet b:bullets){ //会报 java.util.ConcurrentModificationException 错误
 //            b.paint(g);
 //        }
