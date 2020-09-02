@@ -41,16 +41,32 @@ public class Tank {
 
         switch (dir) {
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                if (group == Group.GOOD) {
+                    g.drawImage(ResourceMgr.tankU, x, y, null);
+                } else {
+                    g.drawImage(ResourceMgr.enemyU, x, y, null);
+                }
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                if (group == Group.GOOD) {
+                    g.drawImage(ResourceMgr.tankD, x, y, null);
+                } else {
+                    g.drawImage(ResourceMgr.enemyD, x, y, null);
+                }
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                if (group == Group.GOOD) {
+                    g.drawImage(ResourceMgr.tankL, x, y, null);
+                } else {
+                    g.drawImage(ResourceMgr.enemyL, x, y, null);
+                }
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                if (group == Group.GOOD) {
+                    g.drawImage(ResourceMgr.tankR, x, y, null);
+                } else {
+                    g.drawImage(ResourceMgr.enemyR, x, y, null);
+                }
                 break;
             default:
                 break;
@@ -63,43 +79,65 @@ public class Tank {
             System.out.println(dir);
             switch (dir) {
                 case UP:
-                    y -= SPEED;
+                    if (y - SPEED >= 0)
+                        y -= SPEED;
                     break;
                 case DOWN:
-                    y += SPEED;
+                    if (y + SPEED <= tf.GAME_HEIGHT-HEIGHT)
+                        y += SPEED;
                     break;
                 case LEFT:
-                    x -= SPEED;
+                    if (x - SPEED >= 0)
+                        x -= SPEED;
                     break;
                 case RIGHT:
-                    x += SPEED;
+                    if (x + SPEED <= tf.GAME_WITCH-WIDTH)
+                        x += SPEED;
                     break;
                 default:
                     break;
             }
         }
-        //敌人坦克打子弹
-        if (random.nextInt(10) > 8) this.fire();
-        randomDir();
+        //敌人坦克随机打子弹
+        if (group == Group.BAD) {
+            moving = true;
+            if (random.nextInt(1000) > 990) {
+                this.fire();
+            }
+            if (random.nextInt(1000) > 990) {
+                randomDir();
+            }
+        }
     }
 
+    //敌人坦克随机移动
     private void randomDir() {
-
+        this.dir = Dir.values()[random.nextInt(4)];
+//        int randomInt = random.nextInt(100);
+//        if (randomInt < 25) {
+//            dir = Dir.UP;
+//        } else if (25 <= randomInt && randomInt < 50) {
+//            dir = Dir.DOWN;
+//        } else if (50 <= randomInt && randomInt < 75) {
+//            dir = Dir.LEFT;
+//        } else {
+//            dir = Dir.RIGHT;
+//        }
     }
 
     public void fire() {
         switch (dir) {
             case UP:
-                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y, this.dir,this.group, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y, this.dir, this.group, this.tf));
                 break;
             case DOWN:
-                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y + HEIGHT, this.dir, this.group,this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y + HEIGHT, this.dir, this.group, this.tf));
                 break;
             case LEFT:
-                tf.bullets.add(new Bullet(this.x, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir,this.group,this.tf));
+                tf.bullets.add(new Bullet(this.x, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.group, this.tf));
                 break;
             case RIGHT:
-                tf.bullets.add(new Bullet(this.x + WIDTH, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.group,this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.group, this.tf));
                 break;
             default:
                 break;
@@ -150,6 +188,7 @@ public class Tank {
     public void setRandom(Random random) {
         this.random = random;
     }
+
     public Group getGroup() {
         return group;
     }

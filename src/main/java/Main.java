@@ -13,7 +13,7 @@ public class Main {
             tf.enemyTanks.add(new Tank(50+i*80,200,Dir.DOWN,Group.BAD,tf));
         }
         while (true) {
-            Thread.sleep(50);
+            Thread.sleep(25);
             tf.repaint();
         }
     }

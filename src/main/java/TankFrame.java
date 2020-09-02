@@ -11,15 +11,18 @@ import java.util.List;
  * @descrption
  */
 public class TankFrame extends Frame {
-    static final int GAME_WITCH = 800;
-    static final int GAME_HEIGHT = 600;
+    static final int GAME_WITCH = 1080;
+    static final int GAME_HEIGHT = 960;
 
-    Tank myTank = new Tank(350, 500, Dir.UP, Group.GOOD,this);
-    List<Tank> enemyTanks= new ArrayList();
+    Tank myTank = new Tank(350, 500, Dir.UP, Group.GOOD, this);
+    List<Tank> enemyTanks = new ArrayList();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
-    Explode e=new Explode(50,50,this);
-    Boolean b=false;
+    //    Explode e=new Explode(50,50,this);
+    List<Explode> explodes = new ArrayList<Explode>();
+
+    Boolean b = false;
+
     public TankFrame() {
         setSize(GAME_WITCH, GAME_HEIGHT);
         setResizable(false);
@@ -59,6 +62,7 @@ public class TankFrame extends Frame {
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量:" + bullets.size(), 10, 60);
         g.drawString("敌人的数量:" + enemyTanks.size(), 10, 80);
+        g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
         g.setColor(c);
 
         myTank.paint(g);
@@ -69,19 +73,26 @@ public class TankFrame extends Frame {
 //        for(Bullet b:bullets){ //会报 java.util.ConcurrentModificationException 错误
 //            b.paint(g);
 //        }
+        //画出子弹
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
+        //画出敌人坦克
         for (int i = 0; i < enemyTanks.size(); i++) {
             enemyTanks.get(i).paint(g);
         }
+        //画出爆炸效果
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+
         //子弹和敌方坦克的碰撞检测
-        for(int i=0;i<bullets.size();i++){
-            for(int j=0;j<enemyTanks.size();j++){
-                b=bullets.get(i).collideWith(enemyTanks.get(j));
-                if(b){
-                    Explode e=new Explode(bullets.get(i).getX(),bullets.get(i).getY(),this);
-                }
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < enemyTanks.size(); j++) {
+                b = bullets.get(i).collideWith(enemyTanks.get(j));
+//                if (b) {
+//                    explodes.add(new Explode(bullets.get(i).getX(), bullets.get(i).getY(), this));
+//                }
             }
         }
 //        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
@@ -117,7 +128,6 @@ public class TankFrame extends Frame {
                     break;
             }
             setMainTankDir();
-
         }
 
         @Override

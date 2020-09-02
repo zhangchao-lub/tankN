@@ -12,7 +12,7 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     private Dir dir;
-    private static final int SPEED = 10;
+    private static final int SPEED = 6;
 
     private boolean living = true;
 
@@ -91,6 +91,7 @@ public class Bullet {
         if (rect1.intersects(rect2)) {
             tank.die();
             this.die();
+            tf.explodes.add(new Explode(x,y, tf));
             return true;
         }
         return false;
