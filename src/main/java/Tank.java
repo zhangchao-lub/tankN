@@ -10,11 +10,11 @@ public class Tank {
     // 坦克坐标
     private int x, y;
     // 坦克 长宽
-    private static int WIDTH = ResourceMgr.tankD.getWidth();
-    private static int HEIGHT =ResourceMgr.tankD.getHeight();
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
     private Dir dir = Dir.UP;
     private static final int SPEED = 5;
-
+    private boolean living = true;
     private boolean moving = false;
 
     private TankFrame tf = null;
@@ -31,18 +31,20 @@ public class Tank {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x, y, tankX, tankY);
 //        g.setColor(c);
+        if(!living) return;
+
         switch (dir) {
             case UP:
-                g.drawImage(ResourceMgr.tankU,x,y,null);
+                g.drawImage(ResourceMgr.tankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD,x,y,null);
+                g.drawImage(ResourceMgr.tankD, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.tankL,x,y,null);
+                g.drawImage(ResourceMgr.tankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR,x,y,null);
+                g.drawImage(ResourceMgr.tankR, x, y, null);
                 break;
             default:
                 break;
@@ -75,16 +77,16 @@ public class Tank {
     public void fire() {
         switch (dir) {
             case UP:
-                tf.bullets.add(new Bullet(this.x +WIDTH/2-Bullet.WIDTH/2, this.y, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y, this.dir, this.tf));
                 break;
             case DOWN:
-                tf.bullets.add(new Bullet(this.x +WIDTH/2-Bullet.WIDTH/2, this.y+HEIGHT, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y + HEIGHT, this.dir, this.tf));
                 break;
             case LEFT:
-                tf.bullets.add(new Bullet(this.x, this.y+HEIGHT/2-Bullet.HEIGHT/2, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.tf));
                 break;
             case RIGHT:
-                tf.bullets.add(new Bullet(this.x+WIDTH, this.y+HEIGHT/2-Bullet.HEIGHT/2, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.tf));
                 break;
             default:
                 break;
@@ -121,5 +123,10 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void die() {
+        this.living=false;
+        tf.enemyTanks.remove(this);
     }
 }

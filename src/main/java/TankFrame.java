@@ -15,7 +15,7 @@ public class TankFrame extends Frame {
     static final int GAME_HEIGHT = 600;
 
     Tank myTank = new Tank(350, 500, Dir.UP, this);
-    List<Tank> enemyList= new ArrayList();
+    List<Tank> enemyTanks= new ArrayList();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
 
@@ -70,8 +70,14 @@ public class TankFrame extends Frame {
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
-        for (int i = 0; i < enemyList.size(); i++) {
-            enemyList.get(i).paint(g);
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            enemyTanks.get(i).paint(g);
+        }
+        //子弹和敌方坦克的碰撞检测
+        for(int i=0;i<bullets.size();i++){
+            for(int j=0;j<enemyTanks.size();j++){
+                bullets.get(i).collideWith(enemyTanks.get(j));
+            }
         }
 //        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
 //            Bullet b = it.next();
