@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author czhang@mindpointeye.com
@@ -15,14 +16,19 @@ public class Tank {
     private Dir dir = Dir.UP;
     private static final int SPEED = 5;
     private boolean living = true;
-    private boolean moving = false;
+    private boolean moving = true;
 
     private TankFrame tf = null;
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    private Random random = new Random();
+
+    private Group group = Group.GOOD;
+
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -31,7 +37,7 @@ public class Tank {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x, y, tankX, tankY);
 //        g.setColor(c);
-        if(!living) return;
+        if (!living) return;
 
         switch (dir) {
             case UP:
@@ -72,25 +78,37 @@ public class Tank {
                     break;
             }
         }
+        //敌人坦克打子弹
+        if (random.nextInt(10) > 8) this.fire();
+        randomDir();
+    }
+
+    private void randomDir() {
+
     }
 
     public void fire() {
         switch (dir) {
             case UP:
-                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y, this.dir,this.group, this.tf));
                 break;
             case DOWN:
-                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y + HEIGHT, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y + HEIGHT, this.dir, this.group,this.tf));
                 break;
             case LEFT:
-                tf.bullets.add(new Bullet(this.x, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir,this.group,this.tf));
                 break;
             case RIGHT:
-                tf.bullets.add(new Bullet(this.x + WIDTH, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.tf));
+                tf.bullets.add(new Bullet(this.x + WIDTH, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.group,this.tf));
                 break;
             default:
                 break;
         }
+    }
+
+    public void die() {
+        this.living = false;
+        tf.enemyTanks.remove(this);
     }
 
     public int getX() {
@@ -125,8 +143,18 @@ public class Tank {
         this.moving = moving;
     }
 
-    public void die() {
-        this.living=false;
-        tf.enemyTanks.remove(this);
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
