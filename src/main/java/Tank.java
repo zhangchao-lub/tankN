@@ -20,6 +20,8 @@ public class Tank {
 
     private TankFrame tf = null;
 
+    Rectangle rectangle = new Rectangle();
+
     private Random random = new Random();
 
     private Group group = Group.GOOD;
@@ -30,6 +32,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -78,22 +85,24 @@ public class Tank {
 //                    if (x + SPEED <= tf.GAME_WITCH - WIDTH)
                     x += SPEED;
                     break;
-                default:
-                    break;
             }
         }
+
         //敌人坦克随机打子弹
         if (group == Group.BAD) {
             moving = true;
             if (random.nextInt(1000) > 990) {
                 this.fire();
             }
-            if (random.nextInt(1000) > 990) {
+            if (random.nextInt(1000) > 950) {
                 randomDir();
             }
         }
         //边界检测
         boundsCheck();
+        //update rectangle
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void boundsCheck() {
