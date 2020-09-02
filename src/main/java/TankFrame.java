@@ -18,7 +18,8 @@ public class TankFrame extends Frame {
     List<Tank> enemyTanks= new ArrayList();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
-
+    Explode e=new Explode(50,50,this);
+    Boolean b=false;
     public TankFrame() {
         setSize(GAME_WITCH, GAME_HEIGHT);
         setResizable(false);
@@ -77,7 +78,10 @@ public class TankFrame extends Frame {
         //子弹和敌方坦克的碰撞检测
         for(int i=0;i<bullets.size();i++){
             for(int j=0;j<enemyTanks.size();j++){
-                bullets.get(i).collideWith(enemyTanks.get(j));
+                b=bullets.get(i).collideWith(enemyTanks.get(j));
+                if(b){
+                    Explode e=new Explode(bullets.get(i).getX(),bullets.get(i).getY(),this);
+                }
             }
         }
 //        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {

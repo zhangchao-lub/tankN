@@ -82,8 +82,8 @@ public class Bullet {
         this.living = live;
     }
 
-    public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup())return;
+    public boolean collideWith(Tank tank) {
+        if(this.group == tank.getGroup())return false;
 
         //TODO: 用一个rect来记录子弹的位置
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
@@ -91,7 +91,25 @@ public class Bullet {
         if (rect1.intersects(rect2)) {
             tank.die();
             this.die();
+            return true;
         }
+        return false;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     private void die() {

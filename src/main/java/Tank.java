@@ -16,7 +16,7 @@ public class Tank {
     private Dir dir = Dir.UP;
     private static final int SPEED = 5;
     private boolean living = true;
-    private boolean moving = true;
+    private boolean moving = false;
 
     private TankFrame tf = null;
 
