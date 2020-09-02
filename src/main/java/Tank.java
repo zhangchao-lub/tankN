@@ -10,7 +10,8 @@ public class Tank {
     // 坦克坐标
     private int x, y;
     // 坦克 长宽
-    private int tankX = 50, tankY = 50;
+    private static int WIDTH = ResourceMgr.tankD.getWidth();
+    private static int HEIGHT =ResourceMgr.tankD.getHeight();
     private Dir dir = Dir.UP;
     private static final int SPEED = 5;
 
@@ -71,6 +72,25 @@ public class Tank {
         }
     }
 
+    public void fire() {
+        switch (dir) {
+            case UP:
+                tf.bullets.add(new Bullet(this.x +WIDTH/2-Bullet.WIDTH/2, this.y, this.dir, this.tf));
+                break;
+            case DOWN:
+                tf.bullets.add(new Bullet(this.x +WIDTH/2-Bullet.WIDTH/2, this.y+HEIGHT, this.dir, this.tf));
+                break;
+            case LEFT:
+                tf.bullets.add(new Bullet(this.x, this.y+HEIGHT/2-Bullet.HEIGHT/2, this.dir, this.tf));
+                break;
+            case RIGHT:
+                tf.bullets.add(new Bullet(this.x+WIDTH, this.y+HEIGHT/2-Bullet.HEIGHT/2, this.dir, this.tf));
+                break;
+            default:
+                break;
+        }
+    }
+
     public int getX() {
         return x;
     }
@@ -101,9 +121,5 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
-    }
-
-    public void fire() {
-        tf.bullets.add(new Bullet(this.x +tankX/2, this.y+tankY/2, this.dir, this.tf));
     }
 }

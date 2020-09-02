@@ -7,10 +7,11 @@ import java.awt.*;
  * @descrption
  */
 public class Bullet {
-    private static final int SPEED = 10;
-    private static int WIDTH = 5, HEIGHT = 5;
     private int x, y;
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT =ResourceMgr.bulletD.getHeight();
     private Dir dir;
+    private static final int SPEED = 10;
 
     private boolean live = true;
 
@@ -32,16 +33,16 @@ public class Bullet {
 //        g.fillOval(x, y, WIDTH, HEIGHT);
         switch (dir) {
             case UP:
-                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
                 break;
             default:
                 break;

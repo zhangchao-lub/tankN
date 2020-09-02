@@ -14,7 +14,7 @@ public class TankFrame extends Frame {
     static final int GAME_WITCH = 800;
     static final int GAME_HEIGHT = 600;
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    Tank myTank = new Tank(350, 500, Dir.UP, this);
     List<Tank> enemyList= new ArrayList();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
@@ -69,6 +69,9 @@ public class TankFrame extends Frame {
 //        }
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+        for (int i = 0; i < enemyList.size(); i++) {
+            enemyList.get(i).paint(g);
         }
 //        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
 //            Bullet b = it.next();
