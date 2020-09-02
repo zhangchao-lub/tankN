@@ -10,17 +10,17 @@ import java.io.IOException;
  * @descrption
  */
 public class ResourceMgr {
-    public static BufferedImage tankU, tankD, tankL, tankR;
+    public static BufferedImage heroU, heroD, heroL, heroR;
     public static BufferedImage enemyU, enemyD, enemyL, enemyR;
     public static BufferedImage bulletU, bulletD, bulletL, bulletR;
     public static BufferedImage[] explodes = new BufferedImage[16];
 
     static {
         try {
-            tankU = ImageIO.read(new File("src/images/GoodTank1.png"));
-            tankD = ImageUtil.rotateImage(tankU,180);
-            tankL = ImageUtil.rotateImage(tankU,-90);
-            tankR = ImageUtil.rotateImage(tankU,90);
+            heroU = ImageIO.read(new File("src/images/GoodTank1.png"));
+            heroD = ImageUtil.rotateImage(heroU,180);
+            heroL = ImageUtil.rotateImage(heroU,-90);
+            heroR = ImageUtil.rotateImage(heroU,90);
 //            tankR= ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("src/images/tankR.gif"));
 
             enemyU =ImageIO.read(new File("src/images/BadTank1.png"));

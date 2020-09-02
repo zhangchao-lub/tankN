@@ -18,19 +18,18 @@ public class Bullet {
 
     private TankFrame tf = null;
 
-    private Group group=Group.BAD;
-    public Bullet(int x, int y, Dir dir, Group group,TankFrame tf) {
+    private Group group = Group.BAD;
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.group=group;
+        this.group = group;
         this.tf = tf;
     }
 
     public void paint(Graphics g) {
-        if (!living) {
-            tf.bullets.remove(this);
-        }
+        if (!living) tf.bullets.remove(this);
 //        Color c = g.getColor();
 //        g.setColor(Color.RED);
 //        g.fillOval(x, y, WIDTH, HEIGHT);
@@ -83,7 +82,7 @@ public class Bullet {
     }
 
     public boolean collideWith(Tank tank) {
-        if(this.group == tank.getGroup())return false;
+        if (this.group == tank.getGroup()) return false;
 
         //TODO: 用一个rect来记录子弹的位置
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
@@ -91,7 +90,9 @@ public class Bullet {
         if (rect1.intersects(rect2)) {
             tank.die();
             this.die();
-            tf.explodes.add(new Explode(x,y, tf));
+            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            tf.explodes.add(new Explode(eX, eY, tf));
             return true;
         }
         return false;
@@ -115,7 +116,6 @@ public class Bullet {
 
     private void die() {
         this.living = false;
-        tf.bullets.remove(this);
     }
 
     public Group getGroup() {
