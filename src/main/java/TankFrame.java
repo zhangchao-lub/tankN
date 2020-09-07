@@ -65,6 +65,10 @@ public class TankFrame extends Frame {
         g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
         g.setColor(c);
 
+        //画出敌人坦克
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            enemyTanks.get(i).paint(g);
+        }
         myTank.paint(g);
 //        enemyList.add(new Tank((int)(Math.random()*GAME_WITCH-50),(int)(Math.random()*GAME_HEIGHT-50),null,this));
 //        for (int i = 0; i < enemyList.size(); i++) {
@@ -76,10 +80,6 @@ public class TankFrame extends Frame {
         //画出子弹
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
-        }
-        //画出敌人坦克
-        for (int i = 0; i < enemyTanks.size(); i++) {
-            enemyTanks.get(i).paint(g);
         }
         //画出爆炸效果
         for (int i = 0; i < explodes.size(); i++) {
