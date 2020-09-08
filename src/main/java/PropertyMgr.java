@@ -12,9 +12,12 @@ import java.util.Properties;
 public class PropertyMgr {
     static Properties props = new Properties();
 
+    private PropertyMgr(){
+
+    }
     static {
         try {
-            BufferedImage image2= ImageIO.read(PropertyMgr.class.getResourceAsStream("bulletD.gif"));
+//            BufferedImage image2= ImageIO.read(PropertyMgr.class.getResourceAsStream("bulletD.gif"));
             props.load(PropertyMgr.class.getResourceAsStream("config"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,5 +33,6 @@ public class PropertyMgr {
 
     public static void main(String[] args) {
         System.out.println(PropertyMgr.get("initTankCount"));
+
     }
 }

@@ -11,8 +11,8 @@ public class Tank {
     // 坦克坐标
     private int x, y;
     // 坦克 长宽
-    public static int WIDTH = ResourceMgr.heroU.getWidth();
-    public static int HEIGHT = ResourceMgr.heroU.getHeight();
+    private static int WIDTH = ResourceMgr.getHeroU().getWidth();
+    private static int HEIGHT = ResourceMgr.getHeroU().getHeight();
     private Dir dir = Dir.UP;
     private static final int SPEED = 3;
     private boolean living = true;
@@ -48,16 +48,16 @@ public class Tank {
 
         switch (dir) {
             case UP:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.heroU, x, y, null) : g.drawImage(ResourceMgr.enemyU, x, y, null))
+                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroU(), x, y, null) : g.drawImage(ResourceMgr.getEnemyU(), x, y, null))
                     break;
             case DOWN:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.heroD, x, y, null) : g.drawImage(ResourceMgr.enemyD, x, y, null))
+                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroD(), x, y, null) : g.drawImage(ResourceMgr.getEnemyD(), x, y, null))
                     break;
             case LEFT:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.heroL, x, y, null) : g.drawImage(ResourceMgr.enemyL, x, y, null))
+                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroL(), x, y, null) : g.drawImage(ResourceMgr.getEnemyL(), x, y, null))
                     break;
             case RIGHT:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.heroR, x, y, null) : g.drawImage(ResourceMgr.enemyR, x, y, null))
+                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroR(), x, y, null) : g.drawImage(ResourceMgr.getEnemyR(), x, y, null))
                     break;
             default:
                 break;
@@ -209,5 +209,21 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static void setWIDTH(int WIDTH) {
+        Tank.WIDTH = WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public static void setHEIGHT(int HEIGHT) {
+        Tank.HEIGHT = HEIGHT;
     }
 }
