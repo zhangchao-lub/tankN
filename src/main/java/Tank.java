@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -26,6 +27,8 @@ public class Tank {
 
     private Group group = Group.GOOD;
 
+    FireStrategy fs;
+
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
@@ -37,6 +40,25 @@ public class Tank {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        if(group==Group.GOOD){
+            /** 1，配置文件写法*/
+            String goodFs= (String) PropertyMgr.get("goodFs");
+            try {
+                fs= (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            /** 2，lambda写法*/
+            fs=(t)->{
+                int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
+                // 计算子弹y轴
+                int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
+                // 实例化一颗子弹
+                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
+            };
+        }
     }
 
     public void paint(Graphics g) {
@@ -136,27 +158,14 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
-//        switch (dir) {
-//            case UP:
-//                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y, this.dir, this.group, this.tf));
-//                break;
-//            case DOWN:
-//                tf.bullets.add(new Bullet(this.x + WIDTH / 2 - Bullet.WIDTH / 2, this.y + HEIGHT, this.dir, this.group, this.tf));
-//                break;
-//            case LEFT:
-//                tf.bullets.add(new Bullet(this.x, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.group, this.tf));
-//                break;
-//            case RIGHT:
-//                tf.bullets.add(new Bullet(this.x + WIDTH, this.y + HEIGHT / 2 - Bullet.HEIGHT / 2, this.dir, this.group, this.tf));
-//                break;
-//            default:
-//                break;
-
-        //播放开火的音效
-        if (this.group == Group.GOOD) new Thread(() -> new Audio("src/audio/tank_fire.wav"));
+//        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+//        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+//        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+//
+//        //播放开火的音效
+//        if (this.group == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();
+        /** 使用策略模式实现*/
+        fs.fire(this);
     }
 
     public void die() {
@@ -225,5 +234,13 @@ public class Tank {
 
     public static void setHEIGHT(int HEIGHT) {
         Tank.HEIGHT = HEIGHT;
+    }
+
+    public TankFrame getTf() {
+        return tf;
+    }
+
+    public void setTf(TankFrame tf) {
+        this.tf = tf;
     }
 }

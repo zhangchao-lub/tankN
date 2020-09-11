@@ -2,6 +2,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
+ * 爆炸
  * @author czhang@mindpointeye.com
  * @version 1.0
  * @Date 2020/9/2 11:06

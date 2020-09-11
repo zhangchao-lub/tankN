@@ -3,6 +3,7 @@ package strategy;
 import java.util.Arrays;
 
 /**
+ * 策略模式
  * @author czhang@mindpointeye.com
  * @version 1.0
  * @Date 2020/9/8 16:15
