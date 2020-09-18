@@ -29,6 +29,7 @@ public class Audio {
 		}
 	}
 
+	
 	private AudioFormat audioFormat = null;
 	private SourceDataLine sourceDataLine = null;
 	private DataLine.Info dataLine_info = null;
