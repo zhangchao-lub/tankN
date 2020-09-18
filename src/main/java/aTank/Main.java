@@ -1,3 +1,11 @@
+package aTank;
+
+import aTank.config.PropertyMgr;
+import aTank.entity.Tank;
+import aTank.enums.Dir;
+import aTank.enums.Group;
+import aTank.service.TankFrame;
+
 /**
  * @author czhang@mindpointeye.com
  * @version 1.0
@@ -8,13 +16,13 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tf = new TankFrame();
 
-        int initTankCount= Integer.parseInt((String)PropertyMgr.get("initTankCount")) ;
+        int initTankCount= Integer.parseInt((String) PropertyMgr.get("initTankCount")) ;
         //获取敌人初始化数量
 //        int initTankCount= (int) PropertyMgr.get("initTankCount");
 
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            tf.enemyTanks.add(new Tank(50+i*80,200,Dir.DOWN,Group.BAD,tf));
+            tf.enemyTanks.add(new Tank(50+i*80,200, Dir.DOWN, Group.BAD,tf));
         }
         while (true) {
             Thread.sleep(25);

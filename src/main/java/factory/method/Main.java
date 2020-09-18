@@ -1,7 +1,5 @@
 package factory.method;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author czhang@mindpointeye.com
@@ -10,9 +8,9 @@ import org.slf4j.LoggerFactory;
  * @descrption
  */
 public class Main {
-    private final static Logger logger= LoggerFactory.getLogger(Main.class);
+//    private final static Logger logger= LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
-        logger.info("ok");
+//        logger.info("ok");
         Moveable c=CarFactory.getInstance().create();
         c.go();
     }

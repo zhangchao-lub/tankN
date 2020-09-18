@@ -2,3 +2,5 @@
 initTankCount=10
 goodFs=FourDirFireStrategy
 badFs=DefaultFireStrategy
+goodFsS=aTank.strategy.FourDirFireStrategy
+badFsS=aTank.strategy.DefaultFireStrategy
