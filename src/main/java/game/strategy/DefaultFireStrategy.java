@@ -1,5 +1,6 @@
 package game.strategy;
 
+import game.abstractfactory.BaseTank;
 import game.entity.Bullet;
 import game.entity.Tank;
 
@@ -11,7 +12,7 @@ import game.entity.Tank;
  */
 public class DefaultFireStrategy implements FireStrategy {
     @Override
-    public void fire(Tank t) {
+    public void fire(BaseTank t) {
         // 计算子弹x轴
         int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
         // 计算子弹y轴

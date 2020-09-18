@@ -1,6 +1,6 @@
 package game.strategy;
 
-import game.entity.Tank;
+import game.abstractfactory.BaseTank;
 
 /**
  * @author czhang@mindpointeye.com
@@ -9,5 +9,5 @@ import game.entity.Tank;
  * @descrption
  */
 public interface FireStrategy {
-    void fire(Tank t);
+    void fire(BaseTank t);
 }

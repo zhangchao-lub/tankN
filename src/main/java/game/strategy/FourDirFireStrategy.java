@@ -1,5 +1,6 @@
 package game.strategy;
 
+import game.abstractfactory.BaseTank;
 import game.entity.Bullet;
 import game.entity.Tank;
 import game.enums.Dir;
@@ -12,7 +13,7 @@ import game.enums.Dir;
  */
 public class FourDirFireStrategy implements FireStrategy {
     @Override
-    public void fire(Tank t) {
+    public void fire(BaseTank t) {
         // 计算子弹x轴
         int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
         // 计算子弹y轴
@@ -20,7 +21,7 @@ public class FourDirFireStrategy implements FireStrategy {
         Dir[] dirs= Dir.values();
         for(Dir dir:dirs){
             // 实例化一颗子弹
-            new Bullet(bX, bY, dir, t.getGroup(), t.getTf());
+            t.getTf().gf.createBullet(bX,bY,dir,t.getGroup(),t.getTf());
         }
         // 播放开火的音效
 //        if (t.getGroup() == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();

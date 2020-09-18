@@ -13,9 +13,10 @@ import game.frames.TankFrame;
  * @Date 2020/9/16 11:32
  * @descrption
  */
-public class DefaultFactory extends GameFactory{
+public class DefaultFactory extends GameFactory {
     private DefaultFactory() {
     }
+
     private static class DefaultFactoryHolder {
         private final static DefaultFactory INSTANCE = new DefaultFactory();
     }
@@ -26,16 +27,16 @@ public class DefaultFactory extends GameFactory{
 
     @Override
     public BaseTank createTank(int x, int y, Dir dir, Group group, TankFrame tf) {
-        return new Tank(x,y,dir,group,tf);
+        return new Tank(x, y, dir, group, tf);
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, TankFrame tf) {
-        return null;
+    public BaseBullet createBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+        return new Bullet(x, y, dir, group, tf);
     }
 
     @Override
     public BaseExplode createExplode(int x, int y, TankFrame tf) {
-        return new Explode(x,y,tf);
+        return new Explode(x, y, tf);
     }
 }

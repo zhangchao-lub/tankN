@@ -15,7 +15,7 @@ import java.awt.*;
  * @Date 2020/8/28 11:46
  * @descrption
  */
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private int x, y;
     public static int WIDTH = ResourceMgr.getBulletD().getWidth();
     public static int HEIGHT = ResourceMgr.getBulletD().getHeight();
@@ -30,7 +30,7 @@ public class Bullet extends BaseBullet {
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -45,28 +45,28 @@ public class Bullet extends BaseBullet {
         tf.bullets.add(this);
     }
 
-    @Override
     public void paint(Graphics g) {
         if (!living) tf.bullets.remove(this);
-//        Color c = g.getColor();
-//        g.setColor(Color.RED);
-//        g.fillOval(x, y, WIDTH, HEIGHT);
-        switch (dir) {
-            case UP:
-                g.drawImage(ResourceMgr.getBulletU(), x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.getBulletD(), x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(ResourceMgr.getBulletL(), x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.getBulletR(), x, y, null);
-                break;
-            default:
-                break;
-        }
+//        switch (dir) {
+//            case UP:
+//                g.drawImage(ResourceMgr.getBulletU(), x, y, null);
+//                break;
+//            case DOWN:
+//                g.drawImage(ResourceMgr.getBulletD(), x, y, null);
+//                break;
+//            case LEFT:
+//                g.drawImage(ResourceMgr.getBulletL(), x, y, null);
+//                break;
+//            case RIGHT:
+//                g.drawImage(ResourceMgr.getBulletR(), x, y, null);
+//                break;
+//            default:
+//                break;
+//        }
+        Color c=g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x,y,20,20);
+        g.setColor(c);
         move();
 
     }
@@ -102,7 +102,6 @@ public class Bullet extends BaseBullet {
         this.living = live;
     }
 
-    @Override
     public boolean collideWith(BaseTank baseTank) {
         if (this.group == baseTank.getGroup()) return false;
 
@@ -113,8 +112,7 @@ public class Bullet extends BaseBullet {
             int eX = baseTank.getX() + Tank.getWIDTH() / 2 - Explode.WIDTH / 2;
             int eY = baseTank.getY() + Tank.getHEIGHT() / 2 - Explode.HEIGHT / 2;
 //            tf.explodes.add(new Explode(eX, eY, tf));
-            tf.explodes.add(tf.gf.createExplode(eX, eY, tf));
-
+            tf.explodes.add(tf.gf.createExplode(eX,eY,tf));
             return true;
         }
         return false;

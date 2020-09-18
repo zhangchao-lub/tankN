@@ -7,7 +7,6 @@ import game.enums.Dir;
 import game.enums.Group;
 import game.frames.TankFrame;
 import game.strategy.FireStrategy;
-import game.strategy.FourDirFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -18,7 +17,7 @@ import java.util.Random;
  * @Date 2020/8/28 10:00
  * @descrption
  */
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank {
     // 坦克坐标
     private int x, y;
     // 坦克 长宽
@@ -29,13 +28,13 @@ public class Tank extends BaseTank {
     private boolean living = true;
     private boolean moving = false;
 
-    private TankFrame tf ;
+    private TankFrame tf;
 
     private Random random = new Random();
 
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -47,23 +46,23 @@ public class Tank extends BaseTank {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        if(group== Group.GOOD){
+        if (group == Group.GOOD) {
             /** 1，配置文件写法*/
-            String goodFs= (String) PropertyMgr.get("goodFs2");
+            String goodFs = (String) PropertyMgr.get("goodFs2");
             System.out.println(goodFs);
             try {
-                fs= (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
+                fs = (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
                 System.out.println(fs);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             /** 2，lambda写法*/
-            fs=(t)->{
+            fs = (t) -> {
                 System.out.println(2);
-                int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
+                int bX = t.getX() + RectTank.getWIDTH() / 2 - Bullet.WIDTH / 2;
                 // 计算子弹y轴
-                int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
+                int bY = t.getY() + RectTank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
                 // 实例化一颗子弹
                 new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
             };
@@ -71,29 +70,13 @@ public class Tank extends BaseTank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
-//        Color c = g.getColor();
-//        g.setColor(Color.GREEN);
-//        g.fillRect(x, y, tankX, tankY);
-//        g.setColor(c);
         if (!living) tf.enemyTanks.remove(this);
-
-        switch (dir) {
-            case UP:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroU(), x, y, null) : g.drawImage(ResourceMgr.getEnemyU(), x, y, null))
-                    break;
-            case DOWN:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroD(), x, y, null) : g.drawImage(ResourceMgr.getEnemyD(), x, y, null))
-                    break;
-            case LEFT:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroL(), x, y, null) : g.drawImage(ResourceMgr.getEnemyL(), x, y, null))
-                    break;
-            case RIGHT:
-                if (group == Group.GOOD ? g.drawImage(ResourceMgr.getHeroR(), x, y, null) : g.drawImage(ResourceMgr.getEnemyR(), x, y, null))
-                    break;
-            default:
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.BLUE);
+        g.fillRect(x, y, 50, 50);
+        g.setColor(c);
         move();
     }
 
@@ -222,12 +205,20 @@ public class Tank extends BaseTank {
         this.random = random;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public static int getWIDTH() {
         return WIDTH;
     }
 
     public static void setWIDTH(int WIDTH) {
-        Tank.WIDTH = WIDTH;
+        RectTank.WIDTH = WIDTH;
     }
 
     public static int getHEIGHT() {
@@ -235,7 +226,7 @@ public class Tank extends BaseTank {
     }
 
     public static void setHEIGHT(int HEIGHT) {
-        Tank.HEIGHT = HEIGHT;
+        RectTank.HEIGHT = HEIGHT;
     }
 
     public TankFrame getTf() {

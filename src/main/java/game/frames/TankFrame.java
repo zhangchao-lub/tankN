@@ -1,9 +1,6 @@
 package game.frames;
 
-import game.abstractfactory.BaseExplode;
-import game.abstractfactory.DefaultFactory;
-import game.abstractfactory.GameFactory;
-import game.abstractfactory.RectFactory;
+import game.abstractfactory.*;
 import game.entity.Bullet;
 import game.entity.Explode;
 import game.entity.Tank;
@@ -29,9 +26,9 @@ public class TankFrame extends Frame {
     public static final int GAME_HEIGHT = 960;
 
     Tank myTank = new Tank(350, 500, Dir.UP, Group.GOOD, this);
-    public List<Tank> enemyTanks = new ArrayList();
+    public List<BaseTank> enemyTanks = new ArrayList();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
-    public List<Bullet> bullets = new ArrayList<Bullet>();
+    public List<BaseBullet> bullets = new ArrayList<>();
     //    Explode e=new Explode(50,50,this);
     public List<BaseExplode> explodes = new ArrayList<>();
 

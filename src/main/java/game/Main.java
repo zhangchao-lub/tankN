@@ -22,7 +22,7 @@ public class Main {
 
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            tf.enemyTanks.add(new Tank(50+i*80,200, Dir.DOWN, Group.BAD,tf));
+            tf.enemyTanks.add(tf.gf.createTank(50+i*80,200, Dir.DOWN, Group.BAD,tf));
         }
         while (true) {
             Thread.sleep(25);
