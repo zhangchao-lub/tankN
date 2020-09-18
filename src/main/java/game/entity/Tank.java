@@ -1,5 +1,15 @@
+package game.entity;
+
+import game.abstractfactory.BaseTank;
+import game.config.PropertyMgr;
+import game.config.ResourceMgr;
+import game.enums.Dir;
+import game.enums.Group;
+import game.frames.TankFrame;
+import game.strategy.FireStrategy;
+import game.strategy.FourDirFireStrategy;
+
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -8,7 +18,7 @@ import java.util.Random;
  * @Date 2020/8/28 10:00
  * @descrption
  */
-public class Tank {
+public class Tank extends BaseTank {
     // 坦克坐标
     private int x, y;
     // 坦克 长宽
@@ -19,13 +29,13 @@ public class Tank {
     private boolean living = true;
     private boolean moving = false;
 
-    private TankFrame tf = null;
+    private TankFrame tf ;
 
     Rectangle rectangle = new Rectangle();
 
     private Random random = new Random();
 
-    private Group group = Group.GOOD;
+    private Group group;
 
     FireStrategy fs;
 
@@ -41,9 +51,10 @@ public class Tank {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        if(group==Group.GOOD){
+        if(group== Group.GOOD){
             /** 1，配置文件写法*/
-            String goodFs= (String) PropertyMgr.get("goodFs");
+            String goodFs= (String) PropertyMgr.get("goodFs2");
+            System.out.println(goodFs);
             try {
                 fs= (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
                 System.out.println(fs);
@@ -53,6 +64,7 @@ public class Tank {
         }else{
             /** 2，lambda写法*/
             fs=(t)->{
+                System.out.println(2);
                 int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
                 // 计算子弹y轴
                 int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
@@ -245,4 +257,5 @@ public class Tank {
     public void setTf(TankFrame tf) {
         this.tf = tf;
     }
+
 }

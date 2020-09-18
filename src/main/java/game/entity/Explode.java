@@ -1,14 +1,20 @@
+package game.entity;
+
+import game.abstractfactory.BaseExplode;
+import game.config.ResourceMgr;
+import game.frames.TankFrame;
+
 import java.awt.*;
-import java.util.Random;
 
 /**
  * 爆炸效果
+ *
  * @author czhang@mindpointeye.com
  * @version 1.0
  * @Date 2020/9/2 11:06
  * @descrption
  */
-public class Explode {
+public class Explode extends BaseExplode {
     public static int WIDTH = ResourceMgr.getExplodes()[0].getWidth();
     public static int HEIGHT = ResourceMgr.getExplodes()[0].getHeight();
 
@@ -17,12 +23,13 @@ public class Explode {
     private int step = 0;
     private TankFrame tf = null;
 
-    public Explode(int x, int y,TankFrame tf) {
+    public Explode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
     }
 
+    @Override
     public void paint(Graphics g) {
 //        Color c = g.getColor();
 //        g.setColor(Color.GREEN);
