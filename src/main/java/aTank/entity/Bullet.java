@@ -3,6 +3,7 @@ package aTank.entity;
 import aTank.config.ResourceMgr;
 import aTank.enums.Dir;
 import aTank.enums.Group;
+import aTank.service.GameModel;
 import aTank.service.TankFrame;
 
 import java.awt.*;
@@ -22,29 +23,29 @@ public class Bullet {
 
     private boolean living = true;
 
-    private TankFrame tf = null;
-
+//    private TankFrame tf = null;
+    private GameModel gm;
     Rectangle rectangle = new Rectangle();
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tf.bullets.add(this);
+        gm.bullets.add(this);
     }
 
     public void paint(Graphics g) {
-        if (!living) tf.bullets.remove(this);
+        if (!living) gm.bullets.remove(this);
 //        Color c = g.getColor();
 //        g.setColor(Color.RED);
 //        g.fillOval(x, y, WIDTH, HEIGHT);
@@ -108,7 +109,7 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.getWIDTH() / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.getHEIGHT() / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(new Explode(eX, eY, tf));
+            gm.explodes.add(new Explode(eX, eY, gm));
             return true;
         }
         return false;
@@ -140,5 +141,13 @@ public class Bullet {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public GameModel getGm() {
+        return gm;
+    }
+
+    public void setGm(GameModel gm) {
+        this.gm = gm;
     }
 }

@@ -3,6 +3,8 @@ package aTank.strategy;
 import aTank.entity.Bullet;
 import aTank.entity.Tank;
 import aTank.enums.Dir;
+import aTank.enums.Group;
+import aTank.util.Audio;
 
 /**
  * @author czhang@mindpointeye.com
@@ -20,9 +22,9 @@ public class FourDirFireStrategy implements FireStrategy {
         Dir[] dirs= Dir.values();
         for(Dir dir:dirs){
             // 实例化一颗子弹
-            new Bullet(bX, bY, dir, t.getGroup(), t.getTf());
+            new Bullet(bX, bY, dir, t.getGroup(), t.getGm());
         }
         // 播放开火的音效
-//        if (t.getGroup() == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();
+        if (t.getGroup() == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();
     }
 }

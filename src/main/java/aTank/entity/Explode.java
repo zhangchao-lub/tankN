@@ -1,6 +1,7 @@
 package aTank.entity;
 
 import aTank.config.ResourceMgr;
+import aTank.service.GameModel;
 import aTank.service.TankFrame;
 
 import java.awt.*;
@@ -19,12 +20,13 @@ public class Explode {
     private int x, y;
 
     private int step = 0;
-    private TankFrame tf = null;
+//    private TankFrame tf = null;
 
-    public Explode(int x, int y, TankFrame tf) {
+    GameModel gm;
+    public Explode(int x, int y, GameModel gm) {
         this.x = x;
         this.y = y;
-        this.tf = tf;
+        this.gm = gm;
     }
 
     public void paint(Graphics g) {
@@ -34,7 +36,7 @@ public class Explode {
 //        g.setColor(c);
         g.drawImage(ResourceMgr.getExplodes()[step++], x, y, null);
         if (step >= ResourceMgr.getExplodes().length) {
-            tf.explodes.remove(this);
+            gm.explodes.remove(this);
         }
     }
 }

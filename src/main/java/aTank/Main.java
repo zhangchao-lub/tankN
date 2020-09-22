@@ -1,10 +1,7 @@
 package aTank;
 
-import aTank.config.PropertyMgr;
-import aTank.entity.Tank;
-import aTank.enums.Dir;
-import aTank.enums.Group;
 import aTank.service.TankFrame;
+import aTank.util.Audio;
 
 /**
  * @author czhang@mindpointeye.com
@@ -16,14 +13,9 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tf = new TankFrame();
 
-        int initTankCount= Integer.parseInt((String) PropertyMgr.get("initTankCount")) ;
-        //获取敌人初始化数量
-//        int initTankCount= (int) PropertyMgr.get("initTankCount");
+        //播放游戏登陆音效
+        new Thread(() -> new Audio("war1.wav").play()).start();
 
-        //初始化敌方坦克
-        for (int i = 0; i < initTankCount; i++) {
-            tf.enemyTanks.add(new Tank(50+i*80,200, Dir.DOWN, Group.BAD,tf));
-        }
         while (true) {
             Thread.sleep(25);
             tf.repaint();

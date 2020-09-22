@@ -4,6 +4,7 @@ import aTank.config.PropertyMgr;
 import aTank.config.ResourceMgr;
 import aTank.enums.Dir;
 import aTank.enums.Group;
+import aTank.service.GameModel;
 import aTank.service.TankFrame;
 import aTank.strategy.FireStrategy;
 
@@ -27,7 +28,7 @@ public class Tank {
     private boolean living = true;
     private boolean moving = false;
 
-    private TankFrame tf = null;
+//    private TankFrame tf = null;
 
     Rectangle rectangle = new Rectangle();
 
@@ -35,14 +36,15 @@ public class Tank {
 
     private Group group = Group.GOOD;
 
+    GameModel gm;
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -64,7 +66,7 @@ public class Tank {
                 // 计算子弹y轴
                 int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
                 // 实例化一颗子弹
-                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
+                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getGm());
             };
         }
     }
@@ -74,7 +76,7 @@ public class Tank {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x, y, tankX, tankY);
 //        g.setColor(c);
-        if (!living) tf.enemyTanks.remove(this);
+        if (!living) gm.enemyTanks.remove(this);
 
         switch (dir) {
             case UP:
@@ -244,11 +246,11 @@ public class Tank {
         Tank.HEIGHT = HEIGHT;
     }
 
-    public TankFrame getTf() {
-        return tf;
+    public GameModel getGm() {
+        return gm;
     }
 
-    public void setTf(TankFrame tf) {
-        this.tf = tf;
+    public void setGm(GameModel gm) {
+        this.gm = gm;
     }
 }
