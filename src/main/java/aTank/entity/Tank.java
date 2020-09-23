@@ -5,8 +5,9 @@ import aTank.config.ResourceMgr;
 import aTank.enums.Dir;
 import aTank.enums.Group;
 import aTank.service.GameModel;
+import aTank.service.GameObject;
 import aTank.service.TankFrame;
-import aTank.strategy.FireStrategy;
+import aTank.strategy.fire.FireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -17,9 +18,11 @@ import java.util.Random;
  * @Date 2020/8/28 10:00
  * @descrption
  */
-public class Tank {
+public class Tank extends GameObject {
     // 坦克坐标
     private int x, y;
+    // 坦克上一次坐标
+    private int prevX, prevY;
     // 坦克 长宽
     private static int WIDTH = ResourceMgr.getHeroU().getWidth();
     private static int HEIGHT = ResourceMgr.getHeroU().getHeight();
@@ -51,18 +54,18 @@ public class Tank {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        if(group== Group.GOOD){
+        if (group == Group.GOOD) {
             /** 1，配置文件写法*/
-            String goodFs= (String) PropertyMgr.get("goodFsS");
+            String goodFs = (String) PropertyMgr.get("goodFsS");
             try {
-                fs= (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
+                fs = (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             /** 2，lambda写法*/
-            fs=(t)->{
-                int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
+            fs = (t) -> {
+                int bX = t.getX() + Tank.getWIDTH() / 2 - Bullet.WIDTH / 2;
                 // 计算子弹y轴
                 int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
                 // 实例化一颗子弹
@@ -76,7 +79,7 @@ public class Tank {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x, y, tankX, tankY);
 //        g.setColor(c);
-        if (!living) gm.enemyTanks.remove(this);
+        if (!living) gm.remove(this);
 
         switch (dir) {
             case UP:
@@ -99,7 +102,9 @@ public class Tank {
 
     private void move() {
         if (moving) {
-            System.out.println(dir);
+//            System.out.println(dir);
+            prevX = x;
+            prevY = y;
             switch (dir) {
                 case UP:
 //                    if (y - SPEED >= 0)
@@ -120,12 +125,13 @@ public class Tank {
             }
         }
 
-        //敌人坦克随机打子弹
         if (group == Group.BAD) {
             moving = true;
-            if (random.nextInt(1000) > 990) {
-                this.fire();
-            }
+            //敌人坦克随机打子弹
+//            if (random.nextInt(1000) > 990) {
+//                this.fire();
+//            }
+            //敌人坦克随机移动
             if (random.nextInt(1000) > 950) {
                 randomDir();
             }
@@ -174,12 +180,18 @@ public class Tank {
 //
 //        //播放开火的音效
 //        if (this.group == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();
-        /** 使用策略模式实现*/
+        /** 使用策略模式开火*/
         fs.fire(this);
     }
 
     public void die() {
         this.living = false;
+    }
+
+    public void stop() {
+        this.moving = false;
+        this.x=prevX;
+        this.y=prevY;
     }
 
     public int getX() {
@@ -198,36 +210,20 @@ public class Tank {
         this.y = y;
     }
 
-    public Dir getDir() {
-        return dir;
+    public int getPrevX() {
+        return prevX;
     }
 
-    public void setDir(Dir dir) {
-        this.dir = dir;
+    public void setPrevX(int prevX) {
+        this.prevX = prevX;
     }
 
-    public boolean isMoving() {
-        return moving;
+    public int getPrevY() {
+        return prevY;
     }
 
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
-    public Random getRandom() {
-        return random;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setPrevY(int prevY) {
+        this.prevY = prevY;
     }
 
     public static int getWIDTH() {
@@ -246,11 +242,63 @@ public class Tank {
         Tank.HEIGHT = HEIGHT;
     }
 
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public static int getSPEED() {
+        return SPEED;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public GameModel getGm() {
         return gm;
     }
 
     public void setGm(GameModel gm) {
         this.gm = gm;
+    }
+
+    public FireStrategy getFs() {
+        return fs;
+    }
+
+    public void setFs(FireStrategy fs) {
+        this.fs = fs;
     }
 }

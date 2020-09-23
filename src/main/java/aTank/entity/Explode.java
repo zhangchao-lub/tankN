@@ -2,6 +2,7 @@ package aTank.entity;
 
 import aTank.config.ResourceMgr;
 import aTank.service.GameModel;
+import aTank.service.GameObject;
 import aTank.service.TankFrame;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.awt.*;
  * @Date 2020/9/2 11:06
  * @descrption
  */
-public class Explode {
+public class Explode extends GameObject {
     public static int WIDTH = ResourceMgr.getExplodes()[0].getWidth();
     public static int HEIGHT = ResourceMgr.getExplodes()[0].getHeight();
 
@@ -29,6 +30,7 @@ public class Explode {
         this.gm = gm;
     }
 
+    @Override
     public void paint(Graphics g) {
 //        Color c = g.getColor();
 //        g.setColor(Color.GREEN);
@@ -36,7 +38,7 @@ public class Explode {
 //        g.setColor(c);
         g.drawImage(ResourceMgr.getExplodes()[step++], x, y, null);
         if (step >= ResourceMgr.getExplodes().length) {
-            gm.explodes.remove(this);
+            gm.remove(this);
         }
     }
 }

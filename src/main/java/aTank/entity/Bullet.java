@@ -4,6 +4,7 @@ import aTank.config.ResourceMgr;
 import aTank.enums.Dir;
 import aTank.enums.Group;
 import aTank.service.GameModel;
+import aTank.service.GameObject;
 import aTank.service.TankFrame;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.*;
  * @Date 2020/8/28 11:46
  * @descrption
  */
-public class Bullet {
+public class Bullet extends GameObject {
     private int x, y;
     public static int WIDTH = ResourceMgr.getBulletD().getWidth();
     public static int HEIGHT = ResourceMgr.getBulletD().getHeight();
@@ -41,11 +42,12 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
-        if (!living) gm.bullets.remove(this);
+        if (!living) gm.remove(this);
 //        Color c = g.getColor();
 //        g.setColor(Color.RED);
 //        g.fillOval(x, y, WIDTH, HEIGHT);
@@ -100,19 +102,23 @@ public class Bullet {
         this.living = live;
     }
 
-    public boolean collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return false;
+//    public boolean collideWith(Tank tank) {
+//        if (this.group == tank.getGroup()) return false;
+//
+//        //TODO: 用一个rect来记录子弹的位置
+//        if (this.rectangle.intersects(tank.rectangle)) {
+//            tank.die();
+//            this.die();
+//            int eX = tank.getX() + Tank.getWIDTH() / 2 - Explode.WIDTH / 2;
+//            int eY = tank.getY() + Tank.getHEIGHT() / 2 - Explode.HEIGHT / 2;
+//            gm.add(new Explode(eX, eY, gm));
+//            return true;
+//        }
+//        return false;
+//    }
 
-        //TODO: 用一个rect来记录子弹的位置
-        if (this.rectangle.intersects(tank.rectangle)) {
-            tank.die();
-            this.die();
-            int eX = tank.getX() + Tank.getWIDTH() / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.getHEIGHT() / 2 - Explode.HEIGHT / 2;
-            gm.explodes.add(new Explode(eX, eY, gm));
-            return true;
-        }
-        return false;
+    public void die() {
+        this.living = false;
     }
 
     public int getX() {
@@ -131,16 +137,40 @@ public class Bullet {
         this.y = y;
     }
 
-    private void die() {
-        this.living = false;
+    public static int getWIDTH() {
+        return WIDTH;
     }
 
-    public Group getGroup() {
-        return group;
+    public static void setWIDTH(int WIDTH) {
+        Bullet.WIDTH = WIDTH;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public static void setHEIGHT(int HEIGHT) {
+        Bullet.HEIGHT = HEIGHT;
+    }
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public static int getSPEED() {
+        return SPEED;
+    }
+
+    public boolean isLiving() {
+        return living;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
     }
 
     public GameModel getGm() {
@@ -149,5 +179,21 @@ public class Bullet {
 
     public void setGm(GameModel gm) {
         this.gm = gm;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

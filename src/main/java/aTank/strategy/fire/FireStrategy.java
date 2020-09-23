@@ -1,4 +1,4 @@
-package aTank.strategy;
+package aTank.strategy.fire;
 
 import aTank.entity.Tank;
 
