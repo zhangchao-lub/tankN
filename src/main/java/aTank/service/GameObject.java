@@ -9,7 +9,7 @@ import java.awt.*;
  * @descrption
  */
 public abstract class GameObject {
-    int x, y;
+    protected int x, y;
 
     public abstract void paint(Graphics g);
 

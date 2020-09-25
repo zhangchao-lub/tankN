@@ -4,6 +4,7 @@ import aTank.config.PropertyMgr;
 import aTank.entity.Bullet;
 import aTank.entity.Explode;
 import aTank.entity.Tank;
+import aTank.entity.Wall;
 import aTank.enums.Dir;
 import aTank.enums.Group;
 import aTank.strategy.collide.BulletTankCollider;
@@ -37,13 +38,17 @@ public class GameModel {
     private List<GameObject> objects = new ArrayList<>();
 
     public GameModel() {
-        //获取敌人初始化数量
+        // 获取敌人初始化数量
         int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
-        //初始化敌方坦克
+        // 初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
             objects.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
         }
-        objects.add(myTank);
+        // 初始化墙
+        add(new Wall(200,150,200,50));
+        add(new Wall(600,150,200,50));
+        add(new Wall(300,500,50,200));
+        add(new Wall(500,350,50,200));
     }
 
     public void add(GameObject go) {

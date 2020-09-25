@@ -101,10 +101,10 @@ public class Tank extends GameObject {
     }
 
     private void move() {
+        prevX = x;
+        prevY = y;
         if (moving) {
 //            System.out.println(dir);
-            prevX = x;
-            prevY = y;
             switch (dir) {
                 case UP:
 //                    if (y - SPEED >= 0)
@@ -128,9 +128,9 @@ public class Tank extends GameObject {
         if (group == Group.BAD) {
             moving = true;
             //敌人坦克随机打子弹
-//            if (random.nextInt(1000) > 990) {
-//                this.fire();
-//            }
+            if (random.nextInt(1000) > 990) {
+                this.fire();
+            }
             //敌人坦克随机移动
             if (random.nextInt(1000) > 950) {
                 randomDir();
@@ -190,8 +190,11 @@ public class Tank extends GameObject {
 
     public void stop() {
         this.moving = false;
-        this.x=prevX;
-        this.y=prevY;
+    }
+
+    public void back() {
+        this.x = prevX;
+        this.y = prevY;
     }
 
     public int getX() {

@@ -1,7 +1,9 @@
 package aTank.strategy.collide;
 
+import aTank.config.PropertyMgr;
 import aTank.service.GameModel;
 import aTank.service.GameObject;
+import aTank.strategy.fire.FireStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,8 +19,17 @@ public class ColliderChain {
     private List<Collider> colliders = new LinkedList<>();
 
     public ColliderChain() {
+        /** 1，配置文件写法*/
+        String collider = (String) PropertyMgr.get("colliders");
+//        try {
+//            colliders = (Collider) Class.forName(collider).getDeclaredConstructors().;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         add(new BulletTankCollider());
         add(new TankTankCollider());
+        add(new BulletWallCollider());
+        add(new TankWallCollider());
     }
 
     public void add(Collider c){
