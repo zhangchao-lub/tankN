@@ -24,20 +24,28 @@ import java.util.List;
  */
 public class GameModel {
 
-    Tank myTank = new Tank(350, 500, Dir.UP, Group.GOOD, this);
-//    public List<Tank> enemyTanks = new ArrayList();
-//    //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
-//    public List<Bullet> bullets = new ArrayList<>();
-//    //    Explode e=new Explode(50,50,this);
-//    public List<Explode> explodes = new ArrayList<>();
+    private static final GameModel INSTANCE =new GameModel();
 
-    //    Collider collider = new BulletTankCollider();
-//    Collider collider2 = new TankTankCollider();
+    static {
+        INSTANCE.init();
+    }
+
+    Tank myTank;
+
     ColliderChain chain = new ColliderChain();
 
     private List<GameObject> objects = new ArrayList<>();
 
-    public GameModel() {
+    private GameModel() {
+
+    }
+
+    public static GameModel getInstance() {
+        return INSTANCE;
+    }
+    private void init() {
+        // 初始化主站坦克
+        myTank = new Tank(350, 500, Dir.UP, Group.GOOD, this);
         // 获取敌人初始化数量
         int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
         // 初始化敌方坦克
@@ -50,6 +58,15 @@ public class GameModel {
         add(new Wall(300,500,50,200));
         add(new Wall(500,350,50,200));
     }
+
+//    public List<Tank> enemyTanks = new ArrayList();
+//    //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
+//    public List<Bullet> bullets = new ArrayList<>();
+//    //    Explode e=new Explode(50,50,this);
+//    public List<Explode> explodes = new ArrayList<>();
+
+    //    Collider collider = new BulletTankCollider();
+//    Collider collider2 = new TankTankCollider();
 
     public void add(GameObject go) {
         this.objects.add(go);

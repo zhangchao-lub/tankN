@@ -2,11 +2,14 @@ package aTank.entity;
 
 import aTank.config.PropertyMgr;
 import aTank.config.ResourceMgr;
+import aTank.decorator.RectDecorator;
+import aTank.decorator.TailDecorator;
 import aTank.enums.Dir;
 import aTank.enums.Group;
 import aTank.service.GameModel;
 import aTank.service.GameObject;
 import aTank.service.TankFrame;
+import aTank.strategy.fire.DefaultFireStrategy;
 import aTank.strategy.fire.FireStrategy;
 
 import java.awt.*;
@@ -19,8 +22,6 @@ import java.util.Random;
  * @descrption
  */
 public class Tank extends GameObject {
-    // 坦克坐标
-    private int x, y;
     // 坦克上一次坐标
     private int prevX, prevY;
     // 坦克 长宽
@@ -64,13 +65,20 @@ public class Tank extends GameObject {
             }
         } else {
             /** 2，lambda写法*/
-            fs = (t) -> {
-                int bX = t.getX() + Tank.getWIDTH() / 2 - Bullet.WIDTH / 2;
-                // 计算子弹y轴
-                int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
-                // 实例化一颗子弹
-                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getGm());
-            };
+//            fs = (t) -> {
+//                int bX = t.getX() + this.getWidth() / 2 - Bullet.WIDTH / 2;
+//                // 计算子弹y轴
+//                int bY = t.getY() + this.getHeight() / 2 - Bullet.HEIGHT / 2;
+//                // 实例化一颗子弹
+////                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getGm());
+//                gm.add(
+//                        new RectDecorator(
+//                                new TailDecorator(
+//                                        new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getGm()), t.getGm())
+//                                , t.getGm()));
+//            };
+            /** 3.普通写法*/
+            fs = new DefaultFireStrategy();
         }
     }
 
@@ -229,20 +237,14 @@ public class Tank extends GameObject {
         this.prevY = prevY;
     }
 
-    public static int getWIDTH() {
+    @Override
+    public int getWidth() {
         return WIDTH;
     }
 
-    public static void setWIDTH(int WIDTH) {
-        Tank.WIDTH = WIDTH;
-    }
-
-    public static int getHEIGHT() {
+    @Override
+    public int getHeight() {
         return HEIGHT;
-    }
-
-    public static void setHEIGHT(int HEIGHT) {
-        Tank.HEIGHT = HEIGHT;
     }
 
     public Dir getDir() {
@@ -289,7 +291,7 @@ public class Tank extends GameObject {
         this.group = group;
     }
 
-    public GameModel getGm() {
+    public synchronized GameModel getGm() {
         return gm;
     }
 

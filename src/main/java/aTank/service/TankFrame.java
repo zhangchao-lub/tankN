@@ -16,7 +16,7 @@ import java.awt.event.WindowEvent;
  * @descrption
  */
 public class TankFrame extends Frame {
-    public GameModel gm=new GameModel();
+    public GameModel gm=GameModel.getInstance();
 
     public static final int GAME_WITCH = 1080;
     public static final int GAME_HEIGHT = 960;

@@ -18,8 +18,6 @@ public class Explode extends GameObject {
     public static int WIDTH = ResourceMgr.getExplodes()[0].getWidth();
     public static int HEIGHT = ResourceMgr.getExplodes()[0].getHeight();
 
-    private int x, y;
-
     private int step = 0;
 //    private TankFrame tf = null;
 
@@ -40,5 +38,15 @@ public class Explode extends GameObject {
         if (step >= ResourceMgr.getExplodes().length) {
             gm.remove(this);
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

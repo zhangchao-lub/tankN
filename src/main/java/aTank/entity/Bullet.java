@@ -16,7 +16,6 @@ import java.awt.*;
  * @descrption
  */
 public class Bullet extends GameObject {
-    private int x, y;
     public static int WIDTH = ResourceMgr.getBulletD().getWidth();
     public static int HEIGHT = ResourceMgr.getBulletD().getHeight();
     private Dir dir;
@@ -137,20 +136,14 @@ public class Bullet extends GameObject {
         this.y = y;
     }
 
-    public static int getWIDTH() {
+    @Override
+    public int getWidth() {
         return WIDTH;
     }
 
-    public static void setWIDTH(int WIDTH) {
-        Bullet.WIDTH = WIDTH;
-    }
-
-    public static int getHEIGHT() {
+    @Override
+    public int getHeight() {
         return HEIGHT;
-    }
-
-    public static void setHEIGHT(int HEIGHT) {
-        Bullet.HEIGHT = HEIGHT;
     }
 
     public Dir getDir() {
