@@ -111,7 +111,8 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_SPACE:
 //                    b=myTank.fire();
 //                    bList.add(b);
-                    gm.getMyTank().fire();
+//                    gm.getMyTank().fire();
+                    gm.getMyTank().handleFireKey();
                     break;
                 default:
                     break;
@@ -132,7 +133,6 @@ public class TankFrame extends Frame {
             if (bL) myTank.setDir(Dir.LEFT);
 
         }
-
 
     }
 }

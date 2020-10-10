@@ -6,6 +6,9 @@ import aTank.decorator.RectDecorator;
 import aTank.decorator.TailDecorator;
 import aTank.enums.Dir;
 import aTank.enums.Group;
+import aTank.observer.TankFireEvent;
+import aTank.observer.TankFireHandler;
+import aTank.observer.TankFireObserver;
 import aTank.service.GameModel;
 import aTank.service.GameObject;
 import aTank.service.TankFrame;
@@ -13,6 +16,8 @@ import aTank.strategy.fire.DefaultFireStrategy;
 import aTank.strategy.fire.FireStrategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -191,6 +196,19 @@ public class Tank extends GameObject {
         /** 使用策略模式开火*/
         fs.fire(this);
     }
+
+    /**
+     * 观察者模式
+     */
+    /**-----------------begin----------------------*/
+    private List<TankFireObserver> fireObservers= Arrays.asList(new TankFireHandler());
+    public void handleFireKey(){
+        TankFireEvent event=new TankFireEvent(this);
+        for(TankFireObserver o:fireObservers){
+            o.actionOnFire(event);
+        }
+    }
+    /**-----------------end------------------------*/
 
     public void die() {
         this.living = false;
