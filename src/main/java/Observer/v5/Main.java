@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 加入多个观察者
+ * 加入多个观察者 责任链模式
  *
  * @author czhang@mindpointeye.com
  * @version 1.0
