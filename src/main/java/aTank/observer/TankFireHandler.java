@@ -1,6 +1,5 @@
 package aTank.observer;
 
-import aTank.entity.Tank;
 
 /**
  * @author czhang@mindpointeye.com
