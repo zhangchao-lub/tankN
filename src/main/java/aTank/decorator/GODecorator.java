@@ -9,7 +9,7 @@ import java.awt.*;
  * @author czhang@mindpointeye.com
  * @version 1.0
  * @Date 2020/9/25 11:49
- * @descrption
+ * @descrption 装饰器模式
  */
 public abstract class GODecorator extends GameObject {
     protected GameObject go;
