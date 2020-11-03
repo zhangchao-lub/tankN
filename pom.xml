@@ -46,6 +46,12 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.objectweb.asm/com.springsource.org.objectweb.asm -->
+        <dependency>
+            <groupId>org.objectweb.asm</groupId>
+            <artifactId>com.springsource.org.objectweb.asm</artifactId>
+            <version>2.2.3</version>
+        </dependency>
 
     </dependencies>
 
