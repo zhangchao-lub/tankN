@@ -1,7 +1,9 @@
 package aTank.strategy.collide;
 
+import aTank.entity.GameObject;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
+
+import java.io.Serializable;
 
 /**
  * @author czhang@mindpointeye.com
@@ -9,6 +11,6 @@ import aTank.service.GameObject;
  * @Date 2020/9/22 16:58
  * @descrption
  */
-public interface Collider {
-    boolean collide(GameObject o1, GameObject o2, GameModel gm);
+public interface Collider extends Serializable {
+    boolean collide(GameObject o1, GameObject o2);
 }

@@ -1,7 +1,7 @@
 package aTank.decorator;
 
 import aTank.service.GameModel;
-import aTank.service.GameObject;
+import aTank.entity.GameObject;
 
 import java.awt.*;
 
@@ -14,7 +14,7 @@ import java.awt.*;
 public class TailDecorator extends GODecorator {
 
 
-    public TailDecorator(GameObject go, GameModel gm) {
+    public TailDecorator(GameObject go) {
         super(go);
 //        this.x = go.getX();
 //        this.y = go.getY();

@@ -1,7 +1,7 @@
 package aTank.decorator;
 
 import aTank.service.GameModel;
-import aTank.service.GameObject;
+import aTank.entity.GameObject;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class RectDecorator extends GODecorator {
 
 
 
-    public RectDecorator(GameObject go, GameModel gm) {
+    public RectDecorator(GameObject go) {
         super(go);
 //        this.x = go.getX();
 //        this.y = go.getY();

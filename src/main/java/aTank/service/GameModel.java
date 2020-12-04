@@ -1,18 +1,13 @@
 package aTank.service;
 
 import aTank.config.PropertyMgr;
-import aTank.entity.Bullet;
-import aTank.entity.Explode;
-import aTank.entity.Tank;
-import aTank.entity.Wall;
+import aTank.entity.*;
 import aTank.enums.Dir;
 import aTank.enums.Group;
-import aTank.strategy.collide.BulletTankCollider;
-import aTank.strategy.collide.Collider;
 import aTank.strategy.collide.ColliderChain;
-import aTank.strategy.collide.TankTankCollider;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +17,7 @@ import java.util.List;
  * @Date 2020/9/18 15:42
  * @descrption
  */
-public class GameModel {
+public class GameModel implements Serializable{
 
     private static final GameModel INSTANCE =new GameModel();
 
@@ -32,6 +27,7 @@ public class GameModel {
 
     Tank myTank;
 
+    /**碰撞-责任链*/
     ColliderChain chain = new ColliderChain();
 
     private List<GameObject> objects = new ArrayList<>();
@@ -45,18 +41,18 @@ public class GameModel {
     }
     private void init() {
         // 初始化主站坦克
-        myTank = new Tank(350, 500, Dir.UP, Group.GOOD, this);
+        myTank = new Tank(350, 500, Dir.UP, Group.GOOD);
         // 获取敌人初始化数量
         int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
         // 初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            objects.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD);
         }
         // 初始化墙
-        add(new Wall(200,150,200,50));
-        add(new Wall(600,150,200,50));
-        add(new Wall(300,500,50,200));
-        add(new Wall(500,350,50,200));
+        new Wall(200,150,200,50);
+        new Wall(600,150,200,50);
+        new Wall(300,500,50,200);
+        new Wall(500,350,50,200);
     }
 
 //    public List<Tank> enemyTanks = new ArrayList();
@@ -120,7 +116,7 @@ public class GameModel {
 
 //                collider.collide(o1, o2, this);
 //                collider2.collide(o1, o2, this);
-                if (chain.collide(o1, o2, this)) {
+                if (chain.collide(o1, o2)) {
                     break;
                 }
             }
@@ -136,5 +132,46 @@ public class GameModel {
         this.myTank = myTank;
     }
 
+    public void save(){
+        File file=new File("C:\\Users\\GZWX\\Desktop\\tank.data");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        ObjectOutputStream oos=null;
+        try {
+            oos=new ObjectOutputStream(new FileOutputStream(file));
+            oos.writeObject(myTank);
+            oos.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public void load() {
+        File file=new File("C:\\Users\\GZWX\\Desktop\\tank.data");
+        ObjectInputStream ois=null;
+        try {
+            ois=new ObjectInputStream(new FileInputStream(file));
+            myTank=(Tank) ois.readObject();
+            objects=(List)ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

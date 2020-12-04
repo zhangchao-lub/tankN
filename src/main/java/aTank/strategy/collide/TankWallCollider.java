@@ -1,10 +1,9 @@
 package aTank.strategy.collide;
 
-import aTank.entity.Bullet;
 import aTank.entity.Tank;
 import aTank.entity.Wall;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
+import aTank.entity.GameObject;
 
 /**
  * @author czhang@mindpointeye.com
@@ -14,7 +13,7 @@ import aTank.service.GameObject;
  */
 public class TankWallCollider implements Collider {
     @Override
-    public boolean collide(GameObject o1, GameObject o2, GameModel gm) {
+    public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Tank && o2 instanceof Wall) {
             Tank t = (Tank) o1;
             Wall w = (Wall) o2;
@@ -24,7 +23,7 @@ public class TankWallCollider implements Collider {
             }
         }
         if (o1 instanceof Wall && o2 instanceof Tank) {
-            collide(o2, o1, gm);
+            collide(o2, o1);
         }
         return false;
     }

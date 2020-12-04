@@ -4,7 +4,7 @@ import aTank.entity.Bullet;
 import aTank.entity.Explode;
 import aTank.entity.Tank;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
+import aTank.entity.GameObject;
 
 /**
  * @author czhang@mindpointeye.com
@@ -14,7 +14,7 @@ import aTank.service.GameObject;
  */
 public class BulletTankCollider implements Collider {
     @Override
-    public boolean collide(GameObject o1, GameObject o2, GameModel gm) {
+    public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank) {
             Bullet b = (Bullet) o1;
             Tank t = (Tank) o2;
@@ -26,11 +26,11 @@ public class BulletTankCollider implements Collider {
                 b.die();
                 int eX = t.getX() + t.getWidth() / 2 - Explode.WIDTH / 2;
                 int eY = t.getY() + t.getHeight() / 2 - Explode.HEIGHT / 2;
-                gm.add(new Explode(eX, eY, gm));
+                new Explode(eX, eY);
                 return true;
             }
         }else if(o1 instanceof Tank && o2 instanceof Bullet){
-            collide(o2,o1,gm);
+            collide(o2,o1);
         }else{
             return false;
         }

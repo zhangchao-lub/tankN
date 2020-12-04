@@ -4,7 +4,6 @@ import aTank.config.ResourceMgr;
 import aTank.enums.Dir;
 import aTank.enums.Group;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
 import aTank.service.TankFrame;
 
 import java.awt.*;
@@ -24,29 +23,27 @@ public class Bullet extends GameObject {
     private boolean living = true;
 
 //    private TankFrame tf = null;
-    private GameModel gm;
     Rectangle rectangle = new Rectangle();
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
-        if (!living) gm.remove(this);
+        if (!living) GameModel.getInstance().remove(this);
 //        Color c = g.getColor();
 //        g.setColor(Color.RED);
 //        g.fillOval(x, y, WIDTH, HEIGHT);
@@ -164,14 +161,6 @@ public class Bullet extends GameObject {
 
     public void setLiving(boolean living) {
         this.living = living;
-    }
-
-    public GameModel getGm() {
-        return gm;
-    }
-
-    public void setGm(GameModel gm) {
-        this.gm = gm;
     }
 
     public Rectangle getRectangle() {

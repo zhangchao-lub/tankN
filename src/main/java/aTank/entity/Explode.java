@@ -2,8 +2,7 @@ package aTank.entity;
 
 import aTank.config.ResourceMgr;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
-import aTank.service.TankFrame;
+import aTank.util.Audio;
 
 import java.awt.*;
 
@@ -21,11 +20,13 @@ public class Explode extends GameObject {
     private int step = 0;
 //    private TankFrame tf = null;
 
-    GameModel gm;
-    public Explode(int x, int y, GameModel gm) {
+    GameModel gm=GameModel.getInstance();
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gm = gm;
+
+        GameModel.getInstance().add(this);
+        new Thread(()->new Audio("explode.wav").play()).start();
     }
 
     @Override

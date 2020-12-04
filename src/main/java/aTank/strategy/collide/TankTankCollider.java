@@ -1,10 +1,8 @@
 package aTank.strategy.collide;
 
-import aTank.entity.Bullet;
-import aTank.entity.Explode;
 import aTank.entity.Tank;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
+import aTank.entity.GameObject;
 
 /**
  * @author czhang@mindpointeye.com
@@ -14,7 +12,7 @@ import aTank.service.GameObject;
  */
 public class TankTankCollider implements Collider {
     @Override
-    public boolean collide(GameObject o1, GameObject o2, GameModel gm) {
+    public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Tank && o2 instanceof Tank) {
             Tank t1 = (Tank) o1;
             Tank t2 = (Tank) o2;

@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 /**
  * @author czhang@mindpointeye.com
@@ -84,6 +85,12 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_RIGHT:
                     bR = true;
+                    break;
+                case KeyEvent.VK_S:
+                        gm.save();
+                    break;
+                case KeyEvent.VK_L:
+                        gm.load();
                     break;
                 default:
                     break;

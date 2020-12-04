@@ -2,15 +2,12 @@ package aTank.entity;
 
 import aTank.config.PropertyMgr;
 import aTank.config.ResourceMgr;
-import aTank.decorator.RectDecorator;
-import aTank.decorator.TailDecorator;
 import aTank.enums.Dir;
 import aTank.enums.Group;
 import aTank.observer.TankFireEvent;
 import aTank.observer.TankFireHandler;
 import aTank.observer.TankFireObserver;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
 import aTank.service.TankFrame;
 import aTank.strategy.fire.DefaultFireStrategy;
 import aTank.strategy.fire.FireStrategy;
@@ -45,15 +42,13 @@ public class Tank extends GameObject {
 
     private Group group = Group.GOOD;
 
-    GameModel gm;
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -85,6 +80,7 @@ public class Tank extends GameObject {
             /** 3.普通写法*/
             fs = new DefaultFireStrategy();
         }
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
@@ -92,7 +88,7 @@ public class Tank extends GameObject {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x, y, tankX, tankY);
 //        g.setColor(c);
-        if (!living) gm.remove(this);
+        if (!living) GameModel.getInstance().remove(this);
 
         switch (dir) {
             case UP:
@@ -200,15 +196,21 @@ public class Tank extends GameObject {
     /**
      * 观察者模式
      */
-    /**-----------------begin----------------------*/
-    private List<TankFireObserver> fireObservers= Arrays.asList(new TankFireHandler());
-    public void handleFireKey(){
-        TankFireEvent event=new TankFireEvent(this);
-        for(TankFireObserver o:fireObservers){
+    /**
+     * -----------------begin----------------------
+     */
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
+
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver o : fireObservers) {
             o.actionOnFire(event);
         }
     }
-    /**-----------------end------------------------*/
+
+    /**
+     * -----------------end------------------------
+     */
 
     public void die() {
         this.living = false;
@@ -307,14 +309,6 @@ public class Tank extends GameObject {
 
     public void setGroup(Group group) {
         this.group = group;
-    }
-
-    public synchronized GameModel getGm() {
-        return gm;
-    }
-
-    public void setGm(GameModel gm) {
-        this.gm = gm;
     }
 
     public FireStrategy getFs() {

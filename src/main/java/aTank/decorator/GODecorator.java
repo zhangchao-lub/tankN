@@ -1,7 +1,6 @@
 package aTank.decorator;
 
-import aTank.service.GameModel;
-import aTank.service.GameObject;
+import aTank.entity.GameObject;
 
 import java.awt.*;
 

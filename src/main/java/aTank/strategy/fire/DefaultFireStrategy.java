@@ -4,10 +4,7 @@ import aTank.decorator.RectDecorator;
 import aTank.decorator.TailDecorator;
 import aTank.entity.Bullet;
 import aTank.entity.Tank;
-import aTank.enums.Group;
 import aTank.service.GameModel;
-import aTank.service.GameObject;
-import aTank.util.Audio;
 
 /**
  * @author czhang@mindpointeye.com
@@ -26,8 +23,7 @@ public class DefaultFireStrategy implements FireStrategy {
         GameModel.getInstance().add(
                 new RectDecorator(
                 new TailDecorator(
-                        new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getGm()), t.getGm())
-                        , t.getGm()));
+                        new Bullet(bX, bY, t.getDir(), t.getGroup()))));
         // 播放开火的音效
 //        if (t.getGroup() == Group.BAD) new Thread(() -> new Audio("tank_fire.wav").play()).start();
     }

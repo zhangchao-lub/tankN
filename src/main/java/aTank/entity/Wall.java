@@ -1,6 +1,6 @@
 package aTank.entity;
 
-import aTank.service.GameObject;
+import aTank.service.GameModel;
 
 import java.awt.*;
 
@@ -20,6 +20,8 @@ public class Wall extends GameObject {
         this.w = w;
         this.h = h;
         this.rectangle = new Rectangle(x,y,w,h);
+
+        GameModel.getInstance().add(this);
     }
 
     @Override

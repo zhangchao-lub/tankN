@@ -1,6 +1,7 @@
-package aTank.service;
+package aTank.entity;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @author czhang@mindpointeye.com
@@ -8,7 +9,7 @@ import java.awt.*;
  * @Date 2020/9/22 13:48
  * @descrption
  */
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
     public int x, y;
 
     public abstract void paint(Graphics g);

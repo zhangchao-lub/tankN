@@ -1,5 +1,6 @@
 package aTank;
 
+import aTank.service.GameModel;
 import aTank.service.TankFrame;
 import aTank.util.Audio;
 
