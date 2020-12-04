@@ -26,7 +26,8 @@ public class Explode extends GameObject {
         this.y = y;
 
         GameModel.getInstance().add(this);
-        new Thread(()->new Audio("explode.wav").play()).start();
+        //播放爆炸音效
+//        new Thread(()->new Audio("explode.wav").play()).start();
     }
 
     @Override

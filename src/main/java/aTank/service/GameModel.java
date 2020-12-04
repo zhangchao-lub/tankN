@@ -132,6 +132,8 @@ public class GameModel implements Serializable{
         this.myTank = myTank;
     }
 
+    //Memento 备忘录模式 记录快照
+    //存盘
     public void save(){
         File file=new File("C:\\Users\\GZWX\\Desktop\\tank.data");
         if(!file.exists()){
@@ -156,7 +158,7 @@ public class GameModel implements Serializable{
             }
         }
     }
-
+    //读取
     public void load() {
         File file=new File("C:\\Users\\GZWX\\Desktop\\tank.data");
         ObjectInputStream ois=null;
