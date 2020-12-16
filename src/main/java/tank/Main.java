@@ -25,12 +25,14 @@ public class Main {
 //            tf.repaint();
 //        }
         new Thread(()-> {
-            try {
-                Thread.sleep(25);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while(true){
+                try {
+                    Thread.sleep(25);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                tf.repaint();
             }
-            tf.repaint();
         }).start();
 
         Client c=new Client();

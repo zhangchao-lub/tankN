@@ -23,8 +23,6 @@ public class Tank {
     private boolean living = true;
     private boolean moving = false;
 
-    private TankFrame tf = null;
-
     Rectangle rectangle = new Rectangle();
     UUID id = UUID.randomUUID();
     private Random random = new Random();
@@ -33,12 +31,11 @@ public class Tank {
 
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -60,7 +57,7 @@ public class Tank {
                 // 计算子弹y轴
                 int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
                 // 实例化一颗子弹
-                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
+                new Bullet(bX, bY, t.getDir(), t.getGroup());
             };
         }
     }
@@ -70,7 +67,6 @@ public class Tank {
         this.y = msg.y;
         this.dir = msg.dir;
         this.group = msg.group;
-        this.tf = tf;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -92,13 +88,13 @@ public class Tank {
                 // 计算子弹y轴
                 int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
                 // 实例化一颗子弹
-                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
+                new Bullet(bX, bY, t.getDir(), t.getGroup());
             };
         }
     }
 
     public void paint(Graphics g) {
-        if (!living) tf.enemyTanks.remove(this);
+        if (!living) TankFrame.getInstance().enemyTanks.remove(this);
         Color c = g.getColor();
         g.setColor(Color.GREEN);
         g.drawString(id.toString(),x, y-10);
@@ -270,14 +266,6 @@ public class Tank {
 
     public static void setHEIGHT(int HEIGHT) {
         Tank.HEIGHT = HEIGHT;
-    }
-
-    public TankFrame getTf() {
-        return tf;
-    }
-
-    public void setTf(TankFrame tf) {
-        this.tf = tf;
     }
 
     public UUID getId() {

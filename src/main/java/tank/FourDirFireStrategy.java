@@ -16,7 +16,7 @@ public class FourDirFireStrategy implements FireStrategy {
         Dir[] dirs= Dir.values();
         for(Dir dir:dirs){
             // 实例化一颗子弹
-            new Bullet(bX, bY, dir, t.getGroup(), t.getTf());
+            new Bullet(bX, bY, dir, t.getGroup());
         }
         // 播放开火的音效
 //        if (t.getGroup() == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();

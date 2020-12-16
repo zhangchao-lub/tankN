@@ -17,29 +17,26 @@ public class Bullet {
 
     private boolean living = true;
 
-    private TankFrame tf = null;
-
     Rectangle rectangle = new Rectangle();
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tf.bullets.add(this);
+        TankFrame.getInstance().bullets.add(this);
     }
 
     public void paint(Graphics g) {
-        if (!living) tf.bullets.remove(this);
+        if (!living) TankFrame.getInstance().bullets.remove(this);
 //        Color c = g.getColor();
 //        g.setColor(Color.RED);
 //        g.fillOval(x, y, WIDTH, HEIGHT);
@@ -103,7 +100,7 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.getWIDTH() / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.getHEIGHT() / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(new Explode(eX, eY, tf));
+            TankFrame.getInstance().explodes.add(new Explode(eX, eY));
             return true;
         }
         return false;

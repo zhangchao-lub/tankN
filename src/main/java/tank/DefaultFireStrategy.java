@@ -14,7 +14,7 @@ public class DefaultFireStrategy implements FireStrategy {
         // 计算子弹y轴
         int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
         // 实例化一颗子弹
-        new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
+        new Bullet(bX, bY, t.getDir(), t.getGroup());
         // 播放开火的音效
 //        if (t.getGroup() == Group.GOOD) new Thread(() -> new Audio("tank_fire.wav").play()).start();
     }

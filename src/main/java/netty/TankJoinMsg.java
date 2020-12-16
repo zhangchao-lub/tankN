@@ -89,9 +89,9 @@ public class TankJoinMsg {
                 .append("uuid="+id+" |  ")
                 .append("x="+x+" | ")
                 .append("y="+y+" |")
-                .append("moving"+moving+" | ")
+                .append("moving="+moving+" | ")
                 .append("dir="+dir+" | ")
-                .append("group" +group+" | ")
+                .append("group=" +group+" | ")
                 .append("]");
         return builder.toString();
 

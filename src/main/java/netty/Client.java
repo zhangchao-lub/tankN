@@ -38,7 +38,7 @@ public class Client {
                     b.group(group)
                             .channel(NioSocketChannel.class)
                             .handler(new ClientChannelInitializer())
-                            .connect("localhost", 8888)
+                            .connect("172.16.2.166", 8888)
                             //连接监听器
                             .addListener(new ChannelFutureListener() {
                                 @Override
@@ -95,12 +95,13 @@ class ClientHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
-        if (msg.id.equals(TankFrame.getInstance().getMainTank().getId()) ||
-        TankFrame.getInstance().findByUUID(msg.id)) return;
+        if (msg.id.equals(TankFrame.getInstance().getMainTank().getId())
+                || TankFrame.getInstance().findByUUID(msg.id)
+        ) return;
         log.info(String.valueOf(msg));
-        Tank t=new Tank(msg);
+        Tank t = new Tank(msg);
         TankFrame.getInstance().addTank(t);
-
+        System.out.println(TankFrame.getInstance().getEnemyTanks());
         ctx.writeAndFlush(new TankJoinMsg(TankFrame.getInstance().getMainTank()));
     }
 }

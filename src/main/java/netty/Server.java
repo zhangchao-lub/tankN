@@ -50,7 +50,7 @@ public class Server {
                                     .addLast(new ServerChildHandler());
                         }
                     })
-                    .bind(8888)
+                    .bind("172.16.2.166",8888)
                     .sync();
             ServerFrame.getInstance().updateServerMsg("server started");
             f.channel().closeFuture().sync();//close()->ChannelFuture

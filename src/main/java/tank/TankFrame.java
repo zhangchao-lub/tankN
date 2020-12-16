@@ -28,7 +28,7 @@ public class TankFrame extends Frame {
     static final int GAME_HEIGHT = 960;
 
     Random r = new Random();
-    Tank myTank = new Tank(r.nextInt(GAME_WITCH), r.nextInt(GAME_HEIGHT), Dir.UP, Group.GOOD, this);
+    Tank myTank = new Tank(r.nextInt(GAME_WITCH), r.nextInt(GAME_HEIGHT), Dir.values()[r.nextInt(Dir.values().length)], Group.GOOD);
     Map<UUID, Tank> enemyTanks = new HashMap<>();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
@@ -79,11 +79,13 @@ public class TankFrame extends Frame {
         g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
         g.setColor(c);
 
-        //画出敌人坦克
-        for (int i = 0; i < enemyTanks.size(); i++) {
-            enemyTanks.get(i).paint(g);
-        }
+//        for (int i = 0; i < enemyTanks.size(); i++) {
+//            enemyTanks.get(i).paint(g);
+//        }
+        //画出自己
         myTank.paint(g);
+        //画出其他坦克
+        enemyTanks.values().stream().forEach((e) -> e.paint(g));
 //        enemyList.add(new Tank((int)(Mat0h.random()*GAME_WITCH-50),(int)(Math.random()*GAME_HEIGHT-50),null,this));
 //        for (int i = 0; i < enemyList.size(); i++) {
 //            enemyList.get(i).paint(g);
@@ -194,7 +196,16 @@ public class TankFrame extends Frame {
     public void addTank(Tank t) {
         this.enemyTanks.put(t.id, t);
     }
+
     public boolean findByUUID(UUID id) {
-        return enemyTanks.get(id)==null?false:true;
+        return enemyTanks.get(id) != null;
+    }
+
+    public Map<UUID, Tank> getEnemyTanks() {
+        return enemyTanks;
+    }
+
+    public void setEnemyTanks(Map<UUID, Tank> enemyTanks) {
+        this.enemyTanks = enemyTanks;
     }
 }
