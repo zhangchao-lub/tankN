@@ -1,5 +1,6 @@
+package tank;
+
 import java.awt.*;
-import java.util.Random;
 
 /**
  * 爆炸
@@ -17,7 +18,7 @@ public class Explode {
     private int step = 0;
     private TankFrame tf = null;
 
-    public Explode(int x, int y,TankFrame tf) {
+    public Explode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;

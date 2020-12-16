@@ -1,3 +1,5 @@
+package tank;
+
 /**
  * @author czhang@mindpointeye.com
  * @version 1.0

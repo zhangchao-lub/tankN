@@ -1,5 +1,5 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+package tank;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -18,7 +18,7 @@ public class PropertyMgr {
     static {
         try {
 //            BufferedImage image2= ImageIO.read(PropertyMgr.class.getResourceAsStream("bulletD.gif"));
-            props.load(PropertyMgr.class.getResourceAsStream("config"));
+            props.load(PropertyMgr.class.getResourceAsStream("../config"));
         } catch (IOException e) {
             e.printStackTrace();
         }

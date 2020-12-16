@@ -1,6 +1,7 @@
+package tank;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -121,24 +122,24 @@ public class ResourceMgr {
 
         static {
             try {
-                heroU = ImageIO.read(ResourceMgr.class.getResourceAsStream("GoodTank1.png"));
+                heroU = ImageIO.read(ResourceMgr.class.getResourceAsStream("../GoodTank1.png"));
                 heroD = ImageUtil.rotateImage(heroU, 180);
                 heroL = ImageUtil.rotateImage(heroU, -90);
                 heroR = ImageUtil.rotateImage(heroU, 90);
 //            tankR= ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("src/images/tankR.gif"));
 
-                enemyU = ImageIO.read(ResourceMgr.class.getResourceAsStream("BadTank1.png"));
+                enemyU = ImageIO.read(ResourceMgr.class.getResourceAsStream("../BadTank1.png"));
                 enemyD = ImageUtil.rotateImage(enemyU, 180);
                 enemyL = ImageUtil.rotateImage(enemyU, -90);
                 enemyR = ImageUtil.rotateImage(enemyU, 90);
 
-                bulletU = ImageIO.read(ResourceMgr.class.getResourceAsStream("bulletU.png"));
+                bulletU = ImageIO.read(ResourceMgr.class.getResourceAsStream("../bulletU.png"));
                 bulletD = ImageUtil.rotateImage(bulletU, 180);
                 bulletL = ImageUtil.rotateImage(bulletU, -90);
                 bulletR = ImageUtil.rotateImage(bulletU, 90);
 
                 for (int i = 0; i < 16; i++)
-                    explodes[i] = ImageIO.read(ResourceMgr.class.getResourceAsStream("e" + (i + 1) + ".gif"));
+                    explodes[i] = ImageIO.read(ResourceMgr.class.getResourceAsStream("../e" + (i + 1) + ".gif"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

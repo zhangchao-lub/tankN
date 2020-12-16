@@ -1,4 +1,5 @@
-import javax.annotation.Resource;
+package tank;
+
 import java.awt.*;
 
 /**

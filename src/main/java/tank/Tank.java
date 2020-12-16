@@ -1,6 +1,10 @@
+package tank;
+
+import netty.TankJoinMsg;
+
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * @author czhang@mindpointeye.com
@@ -22,7 +26,7 @@ public class Tank {
     private TankFrame tf = null;
 
     Rectangle rectangle = new Rectangle();
-
+    UUID id = UUID.randomUUID();
     private Random random = new Random();
 
     private Group group = Group.GOOD;
@@ -41,18 +45,50 @@ public class Tank {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        if(group==Group.GOOD){
+        if (group == Group.GOOD) {
             /** 1，配置文件写法*/
-            String goodFs= (String) PropertyMgr.get("goodFs");
+            String goodFs = (String) PropertyMgr.get("goodFs");
             try {
-                fs= (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
+                fs = (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             /** 2，lambda写法*/
-            fs=(t)->{
-                int bX = t.getX() + Tank.getWIDTH()/ 2 - Bullet.WIDTH / 2;
+            fs = (t) -> {
+                int bX = t.getX() + Tank.getWIDTH() / 2 - Bullet.WIDTH / 2;
+                // 计算子弹y轴
+                int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
+                // 实例化一颗子弹
+                new Bullet(bX, bY, t.getDir(), t.getGroup(), t.getTf());
+            };
+        }
+    }
+
+    public Tank(TankJoinMsg msg) {
+        this.x = msg.x;
+        this.y = msg.y;
+        this.dir = msg.dir;
+        this.group = msg.group;
+        this.tf = tf;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
+
+        if (group == Group.GOOD) {
+            /** 1，配置文件写法*/
+            String goodFs = (String) PropertyMgr.get("goodFs");
+            try {
+                fs = (FireStrategy) Class.forName(goodFs).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            /** 2，lambda写法*/
+            fs = (t) -> {
+                int bX = t.getX() + Tank.getWIDTH() / 2 - Bullet.WIDTH / 2;
                 // 计算子弹y轴
                 int bY = t.getY() + Tank.getHEIGHT() / 2 - Bullet.HEIGHT / 2;
                 // 实例化一颗子弹
@@ -62,11 +98,11 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-//        Color c = g.getColor();
-//        g.setColor(Color.GREEN);
-//        g.fillRect(x, y, tankX, tankY);
-//        g.setColor(c);
         if (!living) tf.enemyTanks.remove(this);
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
+        g.drawString(id.toString(),x, y-10);
+        g.setColor(c);
 
         switch (dir) {
             case UP:
@@ -89,7 +125,7 @@ public class Tank {
 
     private void move() {
         if (moving) {
-            System.out.println(dir);
+//            System.out.println(dir);
             switch (dir) {
                 case UP:
 //                    if (y - SPEED >= 0)
@@ -242,5 +278,13 @@ public class Tank {
 
     public void setTf(TankFrame tf) {
         this.tf = tf;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

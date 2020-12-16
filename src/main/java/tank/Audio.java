@@ -1,3 +1,5 @@
+package tank;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
 

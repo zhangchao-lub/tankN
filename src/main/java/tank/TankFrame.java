@@ -1,7 +1,11 @@
+package tank;
+
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -11,11 +15,21 @@ import java.util.List;
  * @descrption
  */
 public class TankFrame extends Frame {
+
+    private static class TankFrameHolder {
+        private final static TankFrame INSTANCE = new TankFrame();
+    }
+
+    public static TankFrame getInstance() {
+        return TankFrameHolder.INSTANCE;
+    }
+
     static final int GAME_WITCH = 1080;
     static final int GAME_HEIGHT = 960;
 
-    Tank myTank = new Tank(350, 500, Dir.UP, Group.GOOD, this);
-    List<Tank> enemyTanks = new ArrayList();
+    Random r = new Random();
+    Tank myTank = new Tank(r.nextInt(GAME_WITCH), r.nextInt(GAME_HEIGHT), Dir.UP, Group.GOOD, this);
+    Map<UUID, Tank> enemyTanks = new HashMap<>();
     //    Bullet b = new Bullet(myTank.getX(), myTank.getY(), Dir.DOWN);
     List<Bullet> bullets = new ArrayList<Bullet>();
     //    Explode e=new Explode(50,50,this);
@@ -171,6 +185,16 @@ public class TankFrame extends Frame {
 
         }
 
+    }
 
+    public Tank getMainTank() {
+        return this.myTank;
+    }
+
+    public void addTank(Tank t) {
+        this.enemyTanks.put(t.id, t);
+    }
+    public boolean findByUUID(UUID id) {
+        return enemyTanks.get(id)==null?false:true;
     }
 }
