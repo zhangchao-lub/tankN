@@ -63,6 +63,7 @@ public class Tank {
     }
 
     public Tank(TankJoinMsg msg) {
+        this.id = msg.id;
         this.x = msg.x;
         this.y = msg.y;
         this.dir = msg.dir;
@@ -97,7 +98,7 @@ public class Tank {
         if (!living) TankFrame.getInstance().enemyTanks.remove(this);
         Color c = g.getColor();
         g.setColor(Color.GREEN);
-        g.drawString(id.toString(),x, y-10);
+        g.drawString(id.toString(), x, y - 10);
         g.setColor(c);
 
         switch (dir) {
@@ -274,5 +275,21 @@ public class Tank {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Tank{" +
+                "x=" + x +
+                ", y=" + y +
+                ", dir=" + dir +
+                ", living=" + living +
+                ", moving=" + moving +
+                ", rectangle=" + rectangle +
+                ", id=" + id +
+                ", random=" + random +
+                ", group=" + group +
+                ", fs=" + fs +
+                '}';
     }
 }

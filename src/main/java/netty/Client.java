@@ -101,7 +101,6 @@ class ClientHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
         log.info(String.valueOf(msg));
         Tank t = new Tank(msg);
         TankFrame.getInstance().addTank(t);
-        System.out.println(TankFrame.getInstance().getEnemyTanks());
         ctx.writeAndFlush(new TankJoinMsg(TankFrame.getInstance().getMainTank()));
     }
 }

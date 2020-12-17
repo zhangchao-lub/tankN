@@ -194,7 +194,7 @@ public class TankFrame extends Frame {
     }
 
     public void addTank(Tank t) {
-        this.enemyTanks.put(t.id, t);
+        enemyTanks.put(t.getId(), t);
     }
 
     public boolean findByUUID(UUID id) {
