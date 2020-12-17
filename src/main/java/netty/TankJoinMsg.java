@@ -1,8 +1,10 @@
 package netty;
 
+import lombok.extern.slf4j.Slf4j;
 import tank.Dir;
 import tank.Group;
 import tank.Tank;
+import tank.TankFrame;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -15,6 +17,7 @@ import java.util.UUID;
  * @Date 2020/12/14 17:38
  * @descrption
  */
+@Slf4j
 public class TankJoinMsg {
     public int x, y;
     public Dir dir;
@@ -95,5 +98,15 @@ public class TankJoinMsg {
                 .append("]");
         return builder.toString();
 
+    }
+
+    public void handle() {
+        if (this.id.equals(TankFrame.getInstance().getMainTank().getId())
+                || TankFrame.getInstance().findByUUID(this.id)
+        ) return;
+        log.info(String.valueOf(this));
+        Tank t = new Tank(this);
+        TankFrame.getInstance().addTank(t);
+        Client.INSTANCE.send(new TankJoinMsg(TankFrame.getInstance().getMainTank()));
     }
 }

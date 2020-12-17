@@ -35,7 +35,6 @@ public class Main {
             }
         }).start();
 
-        Client c=new Client();
-        c.connect();
+        Client.INSTANCE.connect();
     }
 }

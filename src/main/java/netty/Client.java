@@ -25,7 +25,12 @@ import tank.TankFrame;
 @Slf4j
 public class Client {
 
+    public final static Client INSTANCE = new Client();
     private Channel channel = null;
+
+    private Client() {
+
+    }
 
     public void connect() {
         //线程池
@@ -62,14 +67,13 @@ public class Client {
         }
     }
 
-    public void send(String msg) {
-        ByteBuf buf = Unpooled.copiedBuffer(msg.getBytes());
-        channel.writeAndFlush(buf);
+    public void send(TankJoinMsg msg) {
+        channel.writeAndFlush(msg);
     }
 
-    public void closeConnect() {
-        this.send("_bye_");
-    }
+//    public void closeConnect() {
+//        this.send("_bye_");
+//    }
 }
 
 //初始化客户端channel
@@ -95,12 +99,7 @@ class ClientHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
-        if (msg.id.equals(TankFrame.getInstance().getMainTank().getId())
-                || TankFrame.getInstance().findByUUID(msg.id)
-        ) return;
-        log.info(String.valueOf(msg));
-        Tank t = new Tank(msg);
-        TankFrame.getInstance().addTank(t);
-        ctx.writeAndFlush(new TankJoinMsg(TankFrame.getInstance().getMainTank()));
+        msg.handle();
+
     }
 }
