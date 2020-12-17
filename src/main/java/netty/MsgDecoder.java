@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import tank.Dir;
 import tank.Group;
+import tank.Msg;
 import tank.MsgType;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.UUID;
  * @Date 2020/12/14 17:48
  * @descrption 解码器
  */
-public class TankJoinMsgDecoder extends ByteToMessageDecoder {
+public class MsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         if (in.readableBytes() < 8) { //消息类型和长度都有了才解析
@@ -39,16 +40,19 @@ public class TankJoinMsgDecoder extends ByteToMessageDecoder {
         byte[] bytes = new byte[length];
         in.readBytes(bytes);
         //具体解析
+        Msg msg = null;
         switch (msgType) {
             case TankJoin:
-                TankJoinMsg msg = new TankJoinMsg();
-                msg.parse(bytes);
-                out.add(msg);
+                msg = new TankJoinMsg();
+                break;
+            case TankStartMoving:
+                msg = new TankStartMovingMsg();
                 break;
             default:
                 break;
         }
-
+        msg.parse(bytes);
+        out.add(msg);
 
     }
 }

@@ -197,8 +197,8 @@ public class TankFrame extends Frame {
         enemyTanks.put(t.getId(), t);
     }
 
-    public boolean findByUUID(UUID id) {
-        return enemyTanks.get(id) != null;
+    public Tank findByUUID(UUID id) {
+        return enemyTanks.get(id);
     }
 
     public Map<UUID, Tank> getEnemyTanks() {

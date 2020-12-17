@@ -1,7 +1,6 @@
 package netty;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -45,8 +44,8 @@ public class Server {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pl = ch.pipeline();
                             pl
-                                    .addLast(new TankJoinMsgDecoder())
-                                    .addLast(new TankJoinMsgEncoder())
+                                    .addLast(new MsgDecoder())
+                                    .addLast(new MsgEncoder())
                                     .addLast(new ServerChildHandler());
                         }
                     })

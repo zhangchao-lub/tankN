@@ -1,9 +1,10 @@
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
-import netty.TankJoinMsg;
 import netty.MsgDecoder;
 import netty.MsgEncoder;
+import netty.TankJoinMsg;
+import netty.TankStartMovingMsg;
 import org.junit.Assert;
 import org.junit.Test;
 import tank.Dir;
@@ -18,13 +19,13 @@ import java.util.UUID;
  * @Date 2020/12/15 16:04
  * @descrption
  */
-public class TankJoinMsgCodecTest {
+public class TankStartMovingMsgCodecTest {
     @Test
     public void testEncoder() {
         EmbeddedChannel ch = new EmbeddedChannel();
 
         UUID id = UUID.randomUUID();
-        TankJoinMsg msg = new TankJoinMsg(5,10, Dir.DOWN, true, Group.GOOD, id);
+        TankStartMovingMsg msg = new TankStartMovingMsg(5,10, Dir.DOWN, id);
         ch.pipeline()
                 .addLast(new MsgEncoder());
 
@@ -36,7 +37,7 @@ public class TankJoinMsgCodecTest {
 
         //比较消息类型
         MsgType msgType= MsgType.values()[buf.readInt()];
-        Assert.assertEquals(MsgType.TankJoin,msgType);
+        Assert.assertEquals(MsgType.TankStartMoving,msgType);
 
         //比较消息长度
         int length=buf.readInt();
@@ -46,15 +47,11 @@ public class TankJoinMsgCodecTest {
         int x=buf.readInt();//获取x
         int y=buf.readInt();//获取y
         Dir dir=Dir.values()[buf.readInt()];//获取方向
-        boolean moving =buf.readBoolean();//获取移动状态
-        Group g=Group.values()[buf.readInt()];
         UUID uuid=new UUID(buf.readLong(),buf.readLong());
 
         Assert.assertEquals(5,x);
         Assert.assertEquals(10,y);
         Assert.assertEquals(Dir.DOWN,dir);
-        Assert.assertEquals(true,moving);
-        Assert.assertEquals(Group.GOOD,g);
         Assert.assertEquals(id,uuid);
     }
 
@@ -63,12 +60,12 @@ public class TankJoinMsgCodecTest {
         EmbeddedChannel ch=new EmbeddedChannel();
 
         UUID id=UUID.randomUUID();
-        TankJoinMsg msg=new TankJoinMsg(5,10, Dir.DOWN, true, Group.GOOD, id);
+        TankStartMovingMsg msg=new TankStartMovingMsg(5,10, Dir.DOWN, id);
         ch.pipeline().addLast(new MsgDecoder());
 
         ByteBuf buf= Unpooled.buffer();
         //字节数组写到buf里面
-        buf.writeInt(MsgType.TankJoin.ordinal());
+        buf.writeInt(MsgType.TankStartMoving.ordinal());
         byte[] bytes=msg.toBytes();
         buf.writeInt(bytes.length);
         buf.writeBytes(bytes);
@@ -76,13 +73,11 @@ public class TankJoinMsgCodecTest {
         //复制一份写入解析
         ch.writeInbound(buf.duplicate());
 
-        TankJoinMsg msgR=ch.readInbound();
+        TankStartMovingMsg msgR=ch.readInbound();
 
         Assert.assertEquals(5,msgR.x);
         Assert.assertEquals(10,msgR.y);
         Assert.assertEquals(Dir.DOWN,msgR.dir);
-        Assert.assertEquals(true,msgR.moving);
-        Assert.assertEquals(Group.GOOD,msgR.group);
         Assert.assertEquals(id,msgR.id);
     }
 }

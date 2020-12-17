@@ -13,32 +13,25 @@ import java.util.UUID;
  * @descrption
  */
 @Slf4j
-public class TankJoinMsg extends Msg {
+public class TankStartMovingMsg extends Msg {
     public int x, y;
     public Dir dir;
-    public boolean moving;
-    public Group group;
     public UUID id;
 
-    public TankJoinMsg() {
+    public TankStartMovingMsg() {
     }
 
-    public TankJoinMsg(Tank t) {
+    public TankStartMovingMsg(Tank t) {
         this.x = t.getX();
         this.y = t.getY();
         this.dir = t.getDir();
-        this.moving = t.isMoving();
-        this.group = t.getGroup();
         this.id = t.getId();
     }
 
-    public TankJoinMsg(int x, int y, Dir dir, boolean moving, Group group, UUID id) {
-        super();
+    public TankStartMovingMsg(int x, int y, Dir dir, UUID id) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.moving = moving;
-        this.group = group;
         this.id = id;
     }
 
@@ -51,8 +44,6 @@ public class TankJoinMsg extends Msg {
             this.x = dis.readInt();
             this.y = dis.readInt();
             this.dir = Dir.values()[dis.readInt()];
-            this.moving = dis.readBoolean();
-            this.group = Group.values()[dis.readInt()];
             this.id = new UUID(dis.readLong(), dis.readLong());
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +58,7 @@ public class TankJoinMsg extends Msg {
 
     @Override
     public MsgType getMsgType() {
-        return MsgType.TankJoin;
+        return MsgType.TankStartMoving;
     }
 
     @Override
@@ -81,8 +72,6 @@ public class TankJoinMsg extends Msg {
             dos.writeInt(x);
             dos.writeInt(y);
             dos.writeInt(dir.ordinal());
-            dos.writeBoolean(moving);
-            dos.writeInt(group.ordinal());
             dos.writeLong(id.getMostSignificantBits());
             dos.writeLong(id.getLeastSignificantBits());
             dos.flush();
@@ -116,9 +105,7 @@ public class TankJoinMsg extends Msg {
                 .append("uuid=" + id + " |  ")
                 .append("x=" + x + " | ")
                 .append("y=" + y + " |")
-                .append("moving=" + moving + " | ")
                 .append("dir=" + dir + " | ")
-                .append("group=" + group + " | ")
                 .append("]");
         return builder.toString();
 
@@ -127,11 +114,15 @@ public class TankJoinMsg extends Msg {
     @Override
     public void handle() {
         if (this.id.equals(TankFrame.getInstance().getMainTank().getId())
-                || TankFrame.getInstance().findByUUID(this.id) != null
         ) return;
         log.info(String.valueOf(this));
-        Tank t = new Tank(this);
-        TankFrame.getInstance().addTank(t);
-        Client.INSTANCE.send(new TankJoinMsg(TankFrame.getInstance().getMainTank()));
+        Tank t = TankFrame.getInstance().findByUUID(this.id);
+
+        if (t != null) {
+            t.setMoving(true);
+            t.setX(x);
+            t.setY(y);
+            t.setDir(dir);
+        }
     }
 }

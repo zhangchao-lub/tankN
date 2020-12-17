@@ -11,7 +11,7 @@ import tank.Msg;
  * @Date 2020/12/14 17:40
  * @descrption 编码器
  */
-public class TankJoinMsgEncoder extends MessageToByteEncoder<Msg> {
+public class MsgEncoder extends MessageToByteEncoder<Msg> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Msg msg, ByteBuf out) throws Exception {
