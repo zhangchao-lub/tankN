@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import tank.Dir;
 import tank.Group;
+import tank.MsgType;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,17 +19,36 @@ import java.util.UUID;
 public class TankJoinMsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        if(in.readableBytes()<33){ //TCP 拆包 粘包
+        if (in.readableBytes() < 8) { //消息类型和长度都有了才解析
             return;
         }
-        TankJoinMsg msg=new TankJoinMsg();
-        msg.x=in.readInt();
-        msg.y=in.readInt();
-        msg.dir=Dir.values()[in.readInt()];
-        msg.moving=in.readBoolean();
-        msg.group=Group.values()[in.readInt()];
-        msg.id=new UUID(in.readLong(),in.readLong());
+        //标记开始读得位置
+        in.markReaderIndex();
 
-        out.add(msg);
+        //读取消息类型
+        MsgType msgType = MsgType.values()[in.readInt()];
+        //读取长度
+        int length = in.readInt();
+        //数据没有全部到达
+        if (in.readableBytes() < length) {
+            //重置指针
+            in.resetReaderIndex();
+            return;
+        }
+        //数据读到字节数组里面
+        byte[] bytes = new byte[length];
+        in.readBytes(bytes);
+        //具体解析
+        switch (msgType) {
+            case TankJoin:
+                TankJoinMsg msg = new TankJoinMsg();
+                msg.parse(bytes);
+                out.add(msg);
+                break;
+            default:
+                break;
+        }
+
+
     }
 }

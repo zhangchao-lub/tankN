@@ -10,10 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
-import tank.Dir;
-import tank.Group;
-import tank.Tank;
-import tank.TankFrame;
+import tank.*;
 
 
 /**
@@ -67,7 +64,7 @@ public class Client {
         }
     }
 
-    public void send(TankJoinMsg msg) {
+    public void send(Msg msg) {
         channel.writeAndFlush(msg);
     }
 
@@ -90,7 +87,7 @@ class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 }
 
 @Slf4j
-class ClientHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
+class ClientHandler extends SimpleChannelInboundHandler<Msg> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ctx.writeAndFlush(new TankJoinMsg(TankFrame.getInstance().getMainTank()));
@@ -98,7 +95,7 @@ class ClientHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
 
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Msg msg) throws Exception {
         msg.handle();
 
     }

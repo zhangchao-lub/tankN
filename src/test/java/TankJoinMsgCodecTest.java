@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import tank.Dir;
 import tank.Group;
+import tank.Msg;
+import tank.MsgType;
 
 import java.util.UUID;
 
@@ -27,10 +29,21 @@ public class TankJoinMsgCodecTest {
         ch.pipeline()
                 .addLast(new TankJoinMsgEncoder());
 
+        //写数据
         ch.writeOutbound(msg);
 
+        //读数据
         ByteBuf buf=ch.readOutbound();
 
+        //比较消息类型
+        MsgType msgType= MsgType.values()[buf.readInt()];
+        Assert.assertEquals(MsgType.TankJoin,msgType);
+
+        //比较消息长度
+        int length=buf.readInt();
+        Assert.assertEquals(msg.toBytes().length,length);
+
+        //比较数据
         int x=buf.readInt();//获取x
         int y=buf.readInt();//获取y
         Dir dir=Dir.values()[buf.readInt()];//获取方向
@@ -56,11 +69,16 @@ public class TankJoinMsgCodecTest {
 
         ByteBuf buf= Unpooled.buffer();
         //字节数组写到buf里面
-        buf.writeBytes(msg.toBytes());
+        buf.writeInt(MsgType.TankJoin.ordinal());
+        byte[] bytes=msg.toBytes();
+        buf.writeInt(bytes.length);
+        buf.writeBytes(bytes);
+
         //复制一份写入解析
         ch.writeInbound(buf.duplicate());
 
         TankJoinMsg msgR=ch.readInbound();
+
         Assert.assertEquals(5,msgR.x);
         Assert.assertEquals(10,msgR.y);
         Assert.assertEquals(Dir.DOWN,msgR.dir);
