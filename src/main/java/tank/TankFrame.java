@@ -1,7 +1,6 @@
 package tank;
 
 import netty.Client;
-import netty.TankDirChangedMsg;
 import netty.TankStartMovingMsg;
 import netty.TankStopMsg;
 
@@ -111,9 +110,9 @@ public class TankFrame extends Frame {
 //        for (int i = 0; i < bullets.size(); i++) {
 //            for (int j = 0; j < enemyTanks.size(); j++) {
 //                b = bullets.get(i).collideWith(enemyTanks.get(j));
-//                if (b) {
-//                    explodes.add(new Explode(bullets.get(i).getX(), bullets.get(i).getY(), this));
-//                }
+////                if (b) {
+////                    explodes.add(new Explode(bullets.get(i).getX(), bullets.get(i).getY(), this));
+////                }
 //            }
 //        }
 //        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
@@ -186,18 +185,15 @@ public class TankFrame extends Frame {
                 //发送坦克停止移动的消息通知
                 Client.INSTANCE.send(new TankStopMsg(getMainTank()));
             } else {
-                Dir oldDir=myTank.getDir();
                 //判断坦克方向
                 if (bR) myTank.setDir(Dir.RIGHT);
                 if (bU) myTank.setDir(Dir.UP);
                 if (bD) myTank.setDir(Dir.DOWN);
                 if (bL) myTank.setDir(Dir.LEFT);
-                //判断坦克方向是否改变
-                if(!oldDir.equals(myTank.getDir())){
-                    Client.INSTANCE.send(new TankDirChangedMsg(getMainTank()));
-                }
                 //发送坦克移动的消息通知
                 if(!myTank.isMoving()){
+                    Client.INSTANCE.send(new TankStartMovingMsg(getMainTank()));
+                }else {
                     Client.INSTANCE.send(new TankStartMovingMsg(getMainTank()));
                 }
                 myTank.setMoving(true);
@@ -214,9 +210,6 @@ public class TankFrame extends Frame {
         enemyTanks.put(t.getId(), t);
     }
 
-    public void addBullet(Bullet b) {
-        bullets.add(b);
-    }
     public Tank findByUUID(UUID id) {
         return enemyTanks.get(id);
     }
