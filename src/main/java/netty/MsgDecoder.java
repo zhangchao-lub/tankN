@@ -51,6 +51,9 @@ public class MsgDecoder extends ByteToMessageDecoder {
             case TankStop:
                 msg = new TankStopMsg();
                 break;
+            case TankDirChanged:
+                msg = new TankDirChangedMsg();
+                break;
             default:
                 break;
         }
