@@ -1,5 +1,9 @@
 package tank;
 
+import netty.Client;
+import netty.TankStartMovingMsg;
+import netty.TankStopMsg;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -103,14 +107,14 @@ public class TankFrame extends Frame {
         }
 
         //子弹和敌方坦克的碰撞检测
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < enemyTanks.size(); j++) {
-                b = bullets.get(i).collideWith(enemyTanks.get(j));
-//                if (b) {
-//                    explodes.add(new Explode(bullets.get(i).getX(), bullets.get(i).getY(), this));
-//                }
-            }
-        }
+//        for (int i = 0; i < bullets.size(); i++) {
+//            for (int j = 0; j < enemyTanks.size(); j++) {
+//                b = bullets.get(i).collideWith(enemyTanks.get(j));
+////                if (b) {
+////                    explodes.add(new Explode(bullets.get(i).getX(), bullets.get(i).getY(), this));
+////                }
+//            }
+//        }
 //        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
 //            Bullet b = it.next();
 //            if (!b.isLive()) it.remove();
@@ -175,16 +179,25 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
+            //判断坦克是否移动
             if (!bU && !bD && !bL && !bR) {
                 myTank.setMoving(false);
+                //发送坦克停止移动的消息通知
+                Client.INSTANCE.send(new TankStopMsg(getMainTank()));
             } else {
+                //判断坦克方向
+                if (bR) myTank.setDir(Dir.RIGHT);
+                if (bU) myTank.setDir(Dir.UP);
+                if (bD) myTank.setDir(Dir.DOWN);
+                if (bL) myTank.setDir(Dir.LEFT);
+                //发送坦克移动的消息通知
+                if(!myTank.isMoving()){
+                    Client.INSTANCE.send(new TankStartMovingMsg(getMainTank()));
+                }else {
+                    Client.INSTANCE.send(new TankStartMovingMsg(getMainTank()));
+                }
                 myTank.setMoving(true);
             }
-            if (bR) myTank.setDir(Dir.RIGHT);
-            if (bU) myTank.setDir(Dir.UP);
-            if (bD) myTank.setDir(Dir.DOWN);
-            if (bL) myTank.setDir(Dir.LEFT);
-
         }
 
     }
