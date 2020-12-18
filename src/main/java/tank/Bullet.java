@@ -1,6 +1,7 @@
 package tank;
 
 import netty.BulletNewMsg;
+import netty.Client;
 
 import java.awt.*;
 
@@ -42,6 +43,20 @@ public class Bullet {
         this.y = y;
         this.dir = dir;
         this.group = group;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
+
+        //发送新增子弹的消息
+        Client.INSTANCE.send(new BulletNewMsg(this));
+    }
+    public Bullet(BulletNewMsg msg) {
+        this.x = msg.x;
+        this.y = msg.y;
+        this.dir = msg.dir;
+        this.group = msg.group;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
