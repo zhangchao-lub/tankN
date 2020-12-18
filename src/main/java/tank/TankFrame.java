@@ -1,9 +1,6 @@
 package tank;
 
-import netty.Client;
-import netty.TankDirChangedMsg;
-import netty.TankStartMovingMsg;
-import netty.TankStopMsg;
+import netty.*;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -54,7 +51,7 @@ public class TankFrame extends Frame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-
+                Client.INSTANCE.send(new TankDieMsg(getMainTank()));
                 System.exit(0);
             }
         });
@@ -222,7 +219,9 @@ public class TankFrame extends Frame {
     public Tank findByUUID(UUID id) {
         return enemyTanks.get(id);
     }
-
+    public void deleteByUUID(UUID id) {
+        enemyTanks.remove(id);
+    }
     public Map<UUID, Tank> getEnemyTanks() {
         return enemyTanks;
     }
