@@ -12,9 +12,10 @@ import java.util.Properties;
 public class PropertyMgr {
     static Properties props = new Properties();
 
-    private PropertyMgr(){
+    private PropertyMgr() {
 
     }
+
     static {
         try {
 //            BufferedImage image2= ImageIO.read(PropertyMgr.class.getResourceAsStream("bulletD.gif"));

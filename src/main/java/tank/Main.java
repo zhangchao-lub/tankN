@@ -24,8 +24,8 @@ public class Main {
 //            Thread.sleep(25);
 //            tf.repaint();
 //        }
-        new Thread(()-> {
-            while(true){
+        new Thread(() -> {
+            while (true) {
                 try {
                     Thread.sleep(25);
                 } catch (InterruptedException e) {

@@ -18,12 +18,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Server {
-    private static class ChatServerHolder{
-        private final static Server INSTANCE =new Server();
+    private static class ChatServerHolder {
+        private final static Server INSTANCE = new Server();
     }
-    public static Server getInstance(){
+
+    public static Server getInstance() {
         return ChatServerHolder.INSTANCE;
     }
+
     //管道组
     public static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
@@ -49,7 +51,7 @@ public class Server {
                                     .addLast(new ServerChildHandler());
                         }
                     })
-                    .bind("172.16.2.166",8888)
+                    .bind("172.16.2.166", 8888)
                     .sync();
             ServerFrame.getInstance().updateServerMsg("server started");
             f.channel().closeFuture().sync();//close()->ChannelFuture

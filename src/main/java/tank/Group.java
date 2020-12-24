@@ -7,5 +7,5 @@ package tank;
  * @descrption
  */
 public enum Group {
-    GOOD,BAD
+    GOOD, BAD
 }

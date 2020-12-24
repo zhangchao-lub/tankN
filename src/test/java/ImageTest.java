@@ -17,12 +17,12 @@ import static org.junit.Assert.assertNotNull;
 public class ImageTest {
 
     @Test
-    public void test(){
+    public void test() {
         try {
-            BufferedImage image=ImageIO.read(new File("src/images/bulletD.gif"));
+            BufferedImage image = ImageIO.read(new File("src/images/bulletD.gif"));
             assertNotNull(image);
 
-            BufferedImage image2=ImageIO.read(ImageTest.class.getResourceAsStream("bulletD.gif"));
+            BufferedImage image2 = ImageIO.read(ImageTest.class.getResourceAsStream("bulletD.gif"));
             assertNotNull(image2);
         } catch (IOException e) {
             e.printStackTrace();

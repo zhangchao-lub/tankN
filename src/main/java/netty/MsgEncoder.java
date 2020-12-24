@@ -18,7 +18,7 @@ public class MsgEncoder extends MessageToByteEncoder<Msg> {
         //写出下消息类型
         out.writeInt(msg.getMsgType().ordinal());
         //写入字节数组长度
-        byte[] bytes=msg.toBytes();
+        byte[] bytes = msg.toBytes();
         out.writeInt(bytes.length);
         //写入字节数组
         out.writeBytes(bytes);

@@ -1,9 +1,9 @@
 #tanks count at initialization
-initTankCount=10
-goodFs=tank.FourDirFireStrategy
-badFs=tank.DefaultFireStrategy
-#FireStrategy
-#goodFsS=aTank.strategy.fire.FourDirFireStrategy
-#badFsS=aTank.strategy.fire.DefaultFireStrategy
-#colliders
-#colliders=aTank.strategy.collide.BulletTankCollider,aTank.strategy.collide.TankTankCollider,aTank.strategy.collide.BulletWallCollider,aTank.strategy.collide.TankWallCollider
+        initTankCount=10
+        goodFs=tank.FourDirFireStrategy
+        badFs=tank.DefaultFireStrategy
+        #FireStrategy
+        #goodFsS=aTank.strategy.fire.FourDirFireStrategy
+        #badFsS=aTank.strategy.fire.DefaultFireStrategy
+        #colliders
+        #colliders=aTank.strategy.collide.BulletTankCollider,aTank.strategy.collide.TankTankCollider,aTank.strategy.collide.BulletWallCollider,aTank.strategy.collide.TankWallCollider

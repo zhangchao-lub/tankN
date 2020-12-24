@@ -7,5 +7,5 @@ package tank;
  * @descrption
  */
 public enum MsgType {
-    TankJoin,TankDirChanged,TankStop,TankStartMoving,BulletNew,TankDie
+    TankJoin, TankDirChanged, TankStop, TankStartMoving, BulletNew, TankDie
 }

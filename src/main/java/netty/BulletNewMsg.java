@@ -21,7 +21,7 @@ public class BulletNewMsg extends Msg {
     }
 
     public BulletNewMsg(Bullet b) {
-        this.x =b.getX();
+        this.x = b.getX();
         this.y = b.getY();
         this.dir = b.getDir();
         this.group = b.getGroup();
