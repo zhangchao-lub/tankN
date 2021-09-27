@@ -36,14 +36,14 @@ public class Mgr03 {
 
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
-//            //匿名内部类写法
+            // 匿名内部类写法
 //            new Thread(new Runnable() {
 //                @Override
 //                public void run() {
-//                    //
+//                    System.out.println(Mgr03.getInstance().hashCode());
 //                }
-//            });
-            //lambob表达式  只有一个方法的匿名内部类简写方法
+//            }).start();
+            // lambda表达式  只有一个方法的匿名内部类简写方法
             new Thread(() -> {
                 System.out.println(Mgr03.getInstance().hashCode());
             }).start();
