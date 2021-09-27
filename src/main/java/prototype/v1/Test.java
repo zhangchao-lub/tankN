@@ -23,7 +23,7 @@ public class Test {
 }
 
 class Person implements Cloneable{
-    int age=26;
+    int age=27;
     int salary=12000;
 
     Location loc=new Location("yhsx",1303);
